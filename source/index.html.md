@@ -3,6 +3,7 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
+  - php
   - ruby
   - python
   - javascript
@@ -25,26 +26,19 @@ meta:
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the RedSed API You can use our API to access RedSeed API endpoints, which can get information on your users, training, courses and more.
 
 We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
+```php
+use Guzzle;
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
+Guzzle connection example in header
+YOUR_API_KEY
 ```
 
 ```shell
@@ -56,24 +50,32 @@ curl "api_endpoint_here" \
 ```javascript
 const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
+let api = kittn.authorize('YOUR_API_KEY');
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> Make sure to replace `YOUR_API_KEY` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+RedSeed uses API keys to allow access to our API. You can request a new RedSeed API key by contacting <a href='https://support.redseed.me'>RedSeed Support</a>.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+RedSeed expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: YOUR_API_KEY`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>YOUR_API_KEY</code> with your personal API key.
 </aside>
 
-# Kittens
+# Requesting a token
 
-## Get All Kittens
+https://laravel-guide.readthedocs.io/en/latest/passport/#requesting-tokens
+
+
+
+
+# Users
+
+## Get All Users
+
 
 ```ruby
 require 'kittn'
@@ -122,11 +124,11 @@ let kittens = api.kittens.get();
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all users.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://example.com/api/kittens`
 
 ### Query Parameters
 
