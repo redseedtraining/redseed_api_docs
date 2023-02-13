@@ -13,7 +13,16 @@ toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - clients
+  - locations
   - users
+  - user_roles
+  - user_identities
+  - courses
+  - pathways
+  - training
+  - resources
+  - reports
   - errors
 
 search: true

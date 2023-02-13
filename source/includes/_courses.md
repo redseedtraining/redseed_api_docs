@@ -1,8 +1,8 @@
-# Users
+# Courses
 
 A User is required to login and use RedSeed. Users may be trainees, coaches or administrators. A User provides details on user attributes and parameters that can be used within the RedSeed API.
 
-## User Attributes
+## Location Attributes
 
 Attribute | Type | Description
 --------- | ------- | -----------
@@ -26,34 +26,11 @@ Attribute | Type | Description
 `role` | role resource | The users role, including id and name. For more detail about RedSeed User Roles see below.
 `identities` | array of user identity resources | User identity records assigned to the user. For more detail about RedSeed user identities see below.
 
+## Get Location
 
+## Update Location
 
-
-### Supported User Locales
-
-Locale | Linguonym
---------- | -----------
-`en_AU` | English (Aus)
-`en_NZ` | English (NZ)
-`en_US` | English (US)
-`es_ES` | Español
-`fr_FR` | Français
-`id_ID` | Bahasa Indonesia
-`ja_JP` | 日本語
-`pt_BR` | Português
-`th_TH` | ภาษาไทย
-
-
-location
-role
-identity provider
-
-## Get User
-
-
-## Update User
-
-### Archive User
+## Delete Location
 
 ### Unarchive User
 
