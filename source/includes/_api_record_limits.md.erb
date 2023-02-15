@@ -1,0 +1,41 @@
+# API Record Limits
+
+When you request resources with the RedSeed API, you won't necessarily get all of them at once. Instead, you will receive them in pages of up to 100 records at a time. As soon as an API request has more than 100 resources to return, you will need to make multiple requests, one per page.
+
+For example, A RedSeed client has 601 users resources. To retreive ALL 601 user resources, the results will be spread across 7 pages, and you will need to make 7 HTTP requests to fetch all of the users.
+
+Your first GET users request would look like this :
+
+https://api.airtable.com/v0/appxxx/TableName
+
+You will get the first page of records (under the "records" key), but if there is another page, you'll also get an "offset" that would look something like this: 
+
+"offset": "itrSJ1l4jlPyxEG6c/recxxx"
+
+To fetch the next page of 100 users, you'll need to include page=2 as a query parameter. For example: 
+
+https://api.airtable.com/v0/appxxx/TableName?page=2
+
+This will give you the records from the next page. If there's another page, you'll repeat the process—grab the offset and put it in the offset query parameter. When the response doesn't include an offset anymore, you know you've reached the last page and can stop.
+
+You can use the pageSize parameter to change the number from 100 to a smaller number like 50, but 100 is the maximum and most users do not change this.
+
+
+This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+
+
+The Kittn API uses the following error codes:
+
+
+Error Code | Meaning
+---------- | -------
+400 | Bad Request -- Your request is invalid.
+401 | Unauthorized -- Your API key is wrong.
+403 | Forbidden -- The kitten requested is hidden for administrators only.
+404 | Not Found -- The specified kitten could not be found.
+405 | Method Not Allowed -- You tried to access a kitten with an invalid method.
+406 | Not Acceptable -- You requested a format that isn't json.
+410 | Gone -- The kitten requested has been removed from our servers.
+429 | Too Many Requests -- You're requesting too many kittens! Slow down!
+500 | Internal Server Error -- We had a problem with our server. Try again later.
+503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.

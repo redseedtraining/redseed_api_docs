@@ -1,3 +1,8 @@
+# Global Variables
+set :endpoint, 'https://api.redseed.me/api/v0'
+config[:endpoint]
+
+
 # Unique header generation
 require './lib/unique_head.rb'
 
@@ -34,6 +39,9 @@ activate :autoprefixer do |config|
   config.cascade  = false
   config.inline   = true
 end
+
+
+
 
 # Github pages require relative links
 activate :relative_assets

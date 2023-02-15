@@ -19,6 +19,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /srv/slate
+COPY data /srv/slate
 
 RUN chmod +x /srv/slate/slate.sh
 
