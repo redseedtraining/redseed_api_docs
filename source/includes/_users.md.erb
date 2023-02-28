@@ -40,7 +40,139 @@ Locale | Linguonym
 `pt_BR` | Português
 `th_TH` | ภาษาไทย
 
-## Get User
+### Required User Attributes
+
+To create a new user resource or update an existing user resource you will need to supply the following required attributes :
+
+Attribute | Required / Optional
+--------- | ---------
+`id` | Required
+`firstName` | Required
+`lastName` | Required
+`email` | Required
+`type` | Required
+`status` | Required
+`username` | Required
+`locale` | Required
+`marker` | Required
+`locationId` | Required
+
+### Optional User Attributes
+
+The following attributes are optional :
+
+Attribute | Required / Optional
+--------- | ---------
+`code` | Optional
+`roleId` | Optional
+
+## Get user
+
+```shell
+curl "<%= data.redseed.endpoint %>/users/{USER_ID}" \
+  -X GET \
+  -H "Authorization: bearer {MY_API_TOKEN}"
+```
+```php
+$curl = curl_init("<%= data.redseed.endpoint %>/users/{USER_ID}");
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+  'Authorization: bearer {MY_API_TOKEN}'
+]);
+$response = curl_exec($curl);
+```
+```javascript
+const redseedApi = require('redseedApi');
+let api = redseedApi.authorize('{MY_API_TOKEN}');
+let response = api.kittens.get('<%= data.redseed.endpoint %>/users/{USER_ID}');
+```
+
+> The above command returns a JSON response structured like this:
+
+```json
+{
+  "data": {
+    "id": "",
+    "status": "Active",
+    "name": "Example Client",
+    "product": "RedSeed Pro",
+    "dateStarted": "2023-02-14T11:00:00.000000Z",
+    "dateEngagement": null,
+    "dateCreatedAt": "2023-02-14T19:52:57.000000Z",
+    "dateUpdatedAt": "2023-02-14T19:52:57.000000Z"
+  }
+}
+```
+### URL endpoint
+`
+https://api.redseed.me/v0/clients/{UUID}
+`
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+{UUID} | The UUID of the client resource
+
+### URL Query Parameters
+
+None
+
+
+## Create user
+
+```shell
+curl "<%= data.redseed.endpoint %>/api/v0/users" \
+  -X POST \
+  -H "Authorization: bearer {MY_API_TOKEN}"
+```
+
+```php
+$curl = curl_init("<%= data.redseed.endpoint %>/api/v0/users");
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+  'Authorization: bearer {MY_API_TOKEN}'
+]);
+$response = curl_exec($curl);
+```
+
+```javascript
+const redseedApi = require('redseedApi');
+let api = redseedApi.authorize('{MY_API_TOKEN}');
+let response = api.kittens.post('<%= data.redseed.endpoint %>/user_roles/{ID}');
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "id": "",
+    "status": "Active",
+    "name": "Example Client",
+    "product": "RedSeed Pro",
+    "dateStarted": "2023-02-14T11:00:00.000000Z",
+    "dateEngagement": null,
+    "dateCreatedAt": "2023-02-14T19:52:57.000000Z",
+    "dateUpdatedAt": "2023-02-14T19:52:57.000000Z"
+  }
+}
+```
+### URL endpoint
+`
+https://api.redseed.me/v0/clients/{UUID}
+`
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+{UUID} | The UUID of the client resource
+
+### URL Query Parameters
+
+None
+
+<aside class="notice">
+You must replace <code>{UUID}</code> with the uuid of the client resource and <code>{MY_API_TOKEN}</code> with your personal API key.
+</aside>
 
 ## Update User
 
