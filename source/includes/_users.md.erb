@@ -17,7 +17,6 @@ Attribute | Type | Description
 `locale` | 'en_AU', 'en_NZ', 'en_US', 'es_ES', 'fr_FR', 'id_ID', 'ja_JP', 'pt_BR', 'th_TH' | User language in ISO/IEC 15897 format. See supported user locales below.
 `marker` | boolean | Can the user be assigned marking?
 `dateLastLogin` | datetime | The last time the user successfully logged in
-`dateUserAdded` | datetime | When the user record was created
 `dateArchivedAt` | datetime | The datetime the user was last archived
 `dateActivityAt` | datetime | The last recorded activity of the user
 `dateCreatedAt` | datetime | The datetime the user record was created at
@@ -67,50 +66,59 @@ Attribute | Required / Optional
 `roleId` | Optional
 
 ## Get user
+This endpoint is used to fetch details about a specific user. It returns a JSON object that includes the user's location and user role resources.
 
 ```shell
 curl "<%= data.redseed.endpoint %>/users/{USER_ID}" \
   -X GET \
-  -H "Authorization: bearer {MY_API_TOKEN}"
-```
-```php
-$curl = curl_init("<%= data.redseed.endpoint %>/users/{USER_ID}");
-curl_setopt($curl, CURLOPT_HTTPHEADER, [
-  'Authorization: bearer {MY_API_TOKEN}'
-]);
-$response = curl_exec($curl);
-```
-```javascript
-const redseedApi = require('redseedApi');
-let api = redseedApi.authorize('{MY_API_TOKEN}');
-let response = api.kittens.get('<%= data.redseed.endpoint %>/users/{USER_ID}');
+  -H "Authorization: Bearer {MY_API_TOKEN}"
 ```
 
 > The above command returns a JSON response structured like this:
 
 ```json
 {
-  "data": {
-    "id": "",
-    "status": "Active",
-    "name": "Example Client",
-    "product": "RedSeed Pro",
-    "dateStarted": "2023-02-14T11:00:00.000000Z",
-    "dateEngagement": null,
-    "dateCreatedAt": "2023-02-14T19:52:57.000000Z",
-    "dateUpdatedAt": "2023-02-14T19:52:57.000000Z"
-  }
+    "data": {
+        "id": 188291,
+        "firstName": "API Test",
+        "lastName": "User",
+        "email": "apitestuser@redseed.com",
+        "username": "apitest1",
+        "code": null,
+        "type": "HR",
+        "status": "Active",
+        "marker": 1,
+        "locale": "en_NZ",
+        "dateLastLogin": null,
+        "dateCreatedAt": "2023-05-30T03:39:33.000000Z",
+        "dateUpdatedAt": "2023-05-30T03:48:47.000000Z",
+        "dateArchivedAt": null,
+        "dateActivityAt": null,
+        "location": {
+            "id": 11728,
+            "status": "ACTIVE",
+            "description": "Demo",
+            "code": null,
+            "dateCreatedAt": null,
+            "dateUpdatedAt": "2023-05-09T12:00:54.000000Z"
+        },
+        "userRole": {
+            "id": 1588,
+            "description": "Technical Engineer"
+        },
+        "userIdentities": []
+    }
 }
 ```
 ### URL endpoint
 `
-https://api.redseed.me/v0/clients/{UUID}
+https://api.redseed.me/v0/users/{ID}
 `
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-{UUID} | The UUID of the client resource
+{ID} | The ID of the user resource
 
 ### URL Query Parameters
 
