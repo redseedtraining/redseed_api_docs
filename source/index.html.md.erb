@@ -11,16 +11,16 @@ toc_footers:
 includes:
   # - clients.md.erb
   # - locations.md.erb
-  - users.md.erb
+  - users.md
   # - user_roles.md.erb
   # - user_identities.md.erb
-  - courses.md.erb
-  - pathways.md.erb
-  - training.md.erb
+  - training.md
+  - pathways.md
   # - resources.md.erb
   # - reports.md.erb
-  - api_record_limits.md.erb
-  - errors.md.erb
+  # - api_record_limits.md.erb
+  - webhooks.md
+  - errors.md
 
 search: true
 
@@ -41,21 +41,20 @@ You can view code examples in the dark area to the right.
 
 # Authentication
 
-> To authorize, use this code:
+> Note the authorization header below.
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: Bearer YOUR_API_KEY"
+curl "https://api.redseed.me/api/v0/<endpoint>" \
+  --header 'Authorization: Bearer <YOUR_API_KEY>"
 ```
 
-> Make sure to replace `YOUR_API_KEY` with your API key.
+> Make sure to replace `<YOUR_API_KEY>` with your API key.
 
 RedSeed uses API keys to allow access to our API. You can request a new RedSeed API key by contacting <a href='https://support.redseed.me'>RedSeed Support</a>.
 
 RedSeed expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: Bearer YOUR_API_KEY`
+`Authorization: Bearer <YOUR_API_KEY>`
 
 <aside class="notice">
 You must replace <code>YOUR_API_KEY</code> with your personal API key.
