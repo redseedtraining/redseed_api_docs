@@ -617,9 +617,25 @@ You must replace <code>YOUR_API_KEY</code> with your personal API key.
 <p>This endpoint is used to fetch a list of users. It returns a JSON object that includes an array of user resources.</p>
 
 <p>Results are returned in pages of 100 users. You can specify the page number to return using the <code>page</code> query parameter. If no page is specified, the first page will be returned.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-requests'>HTTP Requests</h3>
+<p><code>
+GET https://api.redseed.me/api/v0/users
+</code></p>
+
 <p><code>
 GET https://api.redseed.me/api/v0/users/?page=&lt;page_number&gt;
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/users/?location_id=&lt;location_id&gt;
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/users/?location_id=&lt;location_id&gt;&amp;status[]=Active
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/users/?status[]=Active&amp;status[]=Archived
 </code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -629,8 +645,16 @@ GET https://api.redseed.me/api/v0/users/?page=&lt;page_number&gt;
 </tr>
 </thead><tbody>
 <tr>
-<td><code>&lt;page_number&gt;</code></td>
+<td><code>page</code></td>
 <td>The page of results to retrieve. If no page is specified, the first page will be returned.</td>
+</tr>
+<tr>
+<td><code>location_id</code></td>
+<td>Retrieve users from this location and its children</td>
+</tr>
+<tr>
+<td><code>status[]</code></td>
+<td>Retrieve users with this status. Supports multiple values.</td>
 </tr>
 </tbody></table>
 <h2 id='getting-a-user-39-s-details'>Getting a user&#39;s details</h2>
@@ -673,7 +697,7 @@ GET https://api.redseed.me/api/v0/users/?page=&lt;page_number&gt;
         </span><span class="nl">"userIdentities"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request'>HTTP Request</h3>
 <p><code>
 GET https://api.redseed.me/api/v0/users/&lt;user_id&gt;
 </code></p>
@@ -739,7 +763,7 @@ GET https://api.redseed.me/api/v0/users/&lt;user_id&gt;
     </span><span class="nl">"userRole"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nl">"userIdentities"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
 <p><code>
 POST https://api.redseed.me/api/v0/users
 </code></p>
@@ -845,7 +869,7 @@ POST https://api.redseed.me/api/v0/users
     </span><span class="nl">"dateArchivedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateActivityAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-07T04:11:24.000000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-4'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
 <p><code>
 PUT https://api.redseed.me/api/v0/users/&lt;user_id&gt;
 </code></p>
@@ -1047,10 +1071,30 @@ PUT https://api.redseed.me/api/v0/users/&lt;user_id&gt;
 </span></code></pre></div>
 <p>This endpoint is used to fetch all training records. It returns a JSON object that includes an array of training resources.</p>
 
-<p>Results are returned in pages of 100 records. You can specify the page number to return using the <code>page</code> query parameter. If no page is specified, the first page will be returned.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<p>Results are returned in pages of 1000 records. You can specify the page number to return using the <code>page</code> query parameter. If no page is specified, the first page will be returned.</p>
+<h3 id='http-requests'>HTTP Requests</h3>
 <p><code>
-GET https://api.redseed.me/api/v0/training/?page=&lt;page_number&gt;
+GET https://api.redseed.me/api/v0/training
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?course_id[]=&lt;course_id&gt;
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?course_id[]=&lt;course_id&gt;&amp;course_id[]=&lt;course_id&gt;
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?user_id[]=&lt;user_id&gt;
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?coach_id[]=&lt;coach_id&gt;&amp;course_id[]=&lt;course_id&gt;
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?location_id=&lt;location_id&gt;&amp;course_id[]=&lt;course_id&gt;
 </code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -1060,8 +1104,24 @@ GET https://api.redseed.me/api/v0/training/?page=&lt;page_number&gt;
 </tr>
 </thead><tbody>
 <tr>
-<td><code>&lt;page_number&gt;</code></td>
+<td><code>page</code></td>
 <td>The page of results to retrieve. If no page is specified, the first page will be returned.</td>
+</tr>
+<tr>
+<td><code>location_id</code></td>
+<td>retrieve training for users at this location and its children.</td>
+</tr>
+<tr>
+<td><code>user_id[]</code></td>
+<td>retrieve training for this user. Supports multiple values.</td>
+</tr>
+<tr>
+<td><code>coach_id[]</code></td>
+<td>retrieve training records assigned to this coach. Supports multiple values.</td>
+</tr>
+<tr>
+<td><code>course_id[]</code></td>
+<td>retrieve training records for this course. Supports multiple values.</td>
 </tr>
 </tbody></table>
 <h2 id='getting-training-details'>Getting training details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/training/297065'</span> <span class="se">\</span>
@@ -1099,7 +1159,7 @@ GET https://api.redseed.me/api/v0/training/?page=&lt;page_number&gt;
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint is used to fetch details about a specific training record. It returns a JSON object.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request'>HTTP Request</h3>
 <p><code>
 GET https://api.redseed.me/api/v0/training/&lt;training_id&gt;
 </code></p>
@@ -1161,7 +1221,7 @@ GET https://api.redseed.me/api/v0/training/&lt;training_id&gt;
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint is used to enroll a user in a course. It returns a JSON object.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>
 POST https://api.redseed.me/api/v0/training
 </code></p>
@@ -1195,7 +1255,7 @@ POST https://api.redseed.me/api/v0/training
 <span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
 </code></pre></div>
 <p>Users can be unenrolled from a course by deleting the training record. This endpoint returns a 204 HTTP code.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>
 DELETE https://api.redseed.me/api/v0/training/&lt;training_id&gt;
 </code></p>
