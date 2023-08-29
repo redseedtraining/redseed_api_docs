@@ -59,17 +59,42 @@ curl --location --request GET 'https://api.redseed.me/api/v0/training' \
 ```
 This endpoint is used to fetch all training records. It returns a JSON object that includes an array of training resources.
 
-Results are returned in pages of 100 records. You can specify the page number to return using the `page` query parameter. If no page is specified, the first page will be returned.
+Results are returned in pages of 1000 records. You can specify the page number to return using the `page` query parameter. If no page is specified, the first page will be returned.
 
-### HTTP Request
+### HTTP Requests
 `
-GET https://api.redseed.me/api/v0/training/?page=<page_number>
+GET https://api.redseed.me/api/v0/training
 `
+
+`
+GET https://api.redseed.me/api/v0/training/?course_id[]=<course_id>
+`
+
+`
+GET https://api.redseed.me/api/v0/training/?course_id[]=<course_id>&course_id[]=<course_id>
+`
+
+`
+GET https://api.redseed.me/api/v0/training/?user_id[]=<user_id>
+`
+
+`
+GET https://api.redseed.me/api/v0/training/?coach_id[]=<coach_id>&course_id[]=<course_id>
+`
+
+`
+GET https://api.redseed.me/api/v0/training/?location_id=<location_id>&course_id[]=<course_id>
+`
+
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-`<page_number>` | The page of results to retrieve. If no page is specified, the first page will be returned.
+`page` | The page of results to retrieve. If no page is specified, the first page will be returned.
+`location_id` | retrieve training for users at this location and its children.
+`user_id[]` | retrieve training for this user. Supports multiple values.
+`coach_id[]` | retrieve training records assigned to this coach. Supports multiple values.
+`course_id[]` | retrieve training records for this course. Supports multiple values.
 
 
 ## Getting training details

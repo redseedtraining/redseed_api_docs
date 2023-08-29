@@ -77,16 +77,34 @@ This endpoint is used to fetch a list of users. It returns a JSON object that in
 
 Results are returned in pages of 100 users. You can specify the page number to return using the `page` query parameter. If no page is specified, the first page will be returned.
 
-### HTTP Request
+### HTTP Requests
+`
+GET https://api.redseed.me/api/v0/users
+`
+
 `
 GET https://api.redseed.me/api/v0/users/?page=<page_number>
 `
+
+`
+GET https://api.redseed.me/api/v0/users/?location_id=<location_id>
+`
+
+`
+GET https://api.redseed.me/api/v0/users/?location_id=<location_id>&status[]=Active
+`
+
+`
+GET https://api.redseed.me/api/v0/users/?status[]=Active&status[]=Archived
+`
+
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-`<page_number>` | The page of results to retrieve. If no page is specified, the first page will be returned.
-
+`page` | The page of results to retrieve. If no page is specified, the first page will be returned.
+`location_id` | Retrieve users from this location and its children
+`status[]` | Retrieve users with this status. Supports multiple values.
 
 
 ## Getting a user's details
