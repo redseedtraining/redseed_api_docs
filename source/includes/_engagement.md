@@ -1,6 +1,6 @@
 # Engagement
 
-Engagement is the percentage of active training at a location.
+Engagement is the percentage of active training at a Location.
 
 ## Engagement Attributes
 
