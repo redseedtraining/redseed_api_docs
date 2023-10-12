@@ -16,7 +16,7 @@ Attribute | Type | Description
 
 ## Getting Engagement
 ```shell
-curl --location --request GET 'https://api.redseed.me/api/v0/engagement/<location_id>' \
+curl --location --request GET 'https://api.redseed.me/api/v0/engagement_summary/<location_id>' \
 --header 'Authorization: Bearer <YOUR_API_TOKEN>'
 
 
@@ -43,16 +43,16 @@ curl --location --request GET 'https://api.redseed.me/api/v0/engagement/<locatio
 }
 
 ```
-This endpoint is used to fetch a list of users. It returns a JSON object that includes an array of user resources.
+This endpoint is used to fetch a summary of the engagement at a specific location. If no location is specified, the organisations's top location will be used. The response will contain the number of enrollments that are Not Started, Training, Inactive, and Completed, as well as the total number of enrollments, and the engagement ratio. The engagement ratio is calculated as the number of enrollments that are Training or Completed, divided by the total number of enrollments. The response includes the enrolments at child locations.
 
 
 ### HTTP Requests
 `
-GET https://api.redseed.me/api/v0/engagement
+GET https://api.redseed.me/api/v0/engagement_summary
 `
 
 `
-GET https://api.redseed.me/api/v0/engagement/<location_id>
+GET https://api.redseed.me/api/v0/engagement_summary/<location_id>
 `
 
 
