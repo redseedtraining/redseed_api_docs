@@ -1556,7 +1556,7 @@ DELETE https://api.redseed.me/api/v0/user_pathways/&lt;user_pathway_id&gt;
 <td>The ratio of enrollments that are training OR Completed</td>
 </tr>
 </tbody></table>
-<h2 id='getting-engagement'>Getting Engagement</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/engagement/&lt;location_id&gt;'</span> <span class="se">\</span>
+<h2 id='getting-engagement'>Getting Engagement</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/engagement_summary/&lt;location_id&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
 
 
@@ -1583,14 +1583,14 @@ DELETE https://api.redseed.me/api/v0/user_pathways/&lt;user_pathway_id&gt;
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint is used to fetch a list of users. It returns a JSON object that includes an array of user resources.</p>
+<p>This endpoint is used to fetch a summary of the engagement at a specific location. If no location is specified, the organisations&#39;s top location will be used. The response will contain the number of enrollments that are Not Started, Training, Inactive, and Completed, as well as the total number of enrollments, and the engagement ratio. The engagement ratio is calculated as the number of enrollments that are Training or Completed, divided by the total number of enrollments. The response includes the enrolments at child locations.</p>
 <h3 id='http-requests'>HTTP Requests</h3>
 <p><code>
-GET https://api.redseed.me/api/v0/engagement
+GET https://api.redseed.me/api/v0/engagement_summary
 </code></p>
 
 <p><code>
-GET https://api.redseed.me/api/v0/engagement/&lt;location_id&gt;
+GET https://api.redseed.me/api/v0/engagement_summary/&lt;location_id&gt;
 </code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
