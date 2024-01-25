@@ -409,6 +409,9 @@
                     <a href="#training-completed" class="toc-h2 toc-link" data-title="Training completed">Training completed</a>
                   </li>
                   <li>
+                    <a href="#training-expired" class="toc-h2 toc-link" data-title="Training expired">Training expired</a>
+                  </li>
+                  <li>
                     <a href="#pathway-completed" class="toc-h2 toc-link" data-title="Pathway completed">Pathway completed</a>
                   </li>
               </ul>
@@ -1719,6 +1722,39 @@ GET https://api.redseed.me/api/v0/engagement_summary/&lt;location_id&gt;
 
 </span></code></pre></div>
 <p>This event is triggered when a user completes a course. </p>
+<h2 id='training-expired'>Training expired</h2>
+<blockquote>
+<p>The &quot;TrainingExpired&quot; webhook payload contains a training resource, including the user, coach, and course resources.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TrainingExpired"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1754313</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Completed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"percentComplete"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">312</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-11T02:24:26.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateStartedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-30T03:11:39.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateCompletedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-30T03:11:39.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateExpiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-09-30T03:11:39.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateDeletedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateInactiveAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">User</span><span class="w"> </span><span class="err">resource</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"coach"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">User</span><span class="w"> </span><span class="err">resource</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"course"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">Course</span><span class="w"> </span><span class="err">resource</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This event is triggered when a user&#39;s training expires. Training is checked for expiry every hour, on the hour.</p>
 <h2 id='pathway-completed'>Pathway completed</h2>
 <blockquote>
 <p>The &quot;UserPathwayCompleted&quot; webhook payload contains a UserPathway resource, including the user, coach, and course resources.</p>
