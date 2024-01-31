@@ -121,6 +121,41 @@ This event is triggered when a user is created.
 ```
 
 This event is triggered when a user completes a course. 
+## Training expired
+
+> The "TrainingExpired" webhook payload contains a training resource, including the user, coach, and course resources.
+
+```json
+{
+  "event": "TrainingExpired",
+  "payload": {
+    "id": 1754313,
+    "status": "Completed",
+    "percentComplete": 100,
+    "seconds": 312,
+    "dateCreatedAt": "2022-10-11T02:24:26.000000Z",
+    "dateStartedAt": null,
+    "dateUpdatedAt": "2023-06-30T03:11:39.000000Z",
+    "dateCompletedAt": "2023-06-30T03:11:39.000000Z",
+    "dateExpiresAt": "2023-09-30T03:11:39.000000Z",
+    "dateDeletedAt": null,
+    "dateInactiveAt": null,
+    "user": {
+      // User resource
+    },
+    "coach": {
+      // User resource
+    },
+    "course": {
+      // Course resource
+    },
+  }
+  
+}
+
+```
+
+This event is triggered when a user's training expires. Training is checked for expiry every hour, on the hour.
 
 ## Pathway completed
 

@@ -229,3 +229,152 @@ DELETE https://api.redseed.me/api/v0/training/<training_id>
 Parameter | Description
 --------- | -----------
 `<training_id>` | The id of the training record to remove.
+
+## Getting self-enrollable courses
+```shell
+curl --location --request POST 'https://api.redseed.me/api/v0/self_enroll' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer {MY_API_TOKEN}' \
+--header 'Content-Type: application/json' \
+```
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data": [
+        {
+            "id": 231852427,
+            "name": "Red Course",
+            "status": "Active",
+            "certificate": 1,
+            "activeVersion": {
+                "id": 10724,
+                "version_id": 3,
+                "launch_url": "index.html",
+                "schema_version": "xapi",
+                "dateCreatedAt": "2024-01-31T03:16:59.000000Z",
+                "dateUpdatedAt": "2024-01-31T03:16:59.000000Z"
+            },
+            "description": "A course about Red",
+            "completion_time": 0,
+            "dateCreatedAt": "2024-01-31T03:16:59.000000Z",
+            "dateUpdatedAt":"2024-01-31T03:16:59.000000Z",
+            "dateReleasedAt": null,
+            "categories": [
+                {
+                    "id": 8908,
+                    "name": "leadership"
+                },
+                {
+                    "id": 8909,
+                    "name": "product knowledge"
+                }
+            ]
+        },
+        {
+            "id": 786489599,
+            "name": "Blue Course",
+            "status": "Active",
+            "certificate": 1,
+            "activeVersion": {
+                "id": 10725,
+                "version_id": 3,
+                "launch_url": "index.html",
+                "schema_version": "xapi",
+                "dateCreatedAt": "2024-01-31T03:16:59.000000Z",
+                "dateUpdatedAt": "2024-01-31T03:16:59.000000Z"
+            },
+            "description": "A course about Blue",
+            "completion_time": 0,
+            "dateCreatedAt": "2024-01-31T03:16:59.000000Z",
+            "dateUpdatedAt": "2024-01-31T03:16:59.000000Z",
+            "dateReleasedAt": "2024-01-31T03:16:59.000000Z",
+            "categories": [
+                {
+                    "id": 8904,
+                    "name": "coaching"
+                },
+                {
+                    "id": 8905,
+                    "name": "leadership"
+                }
+            ]
+        }
+    ]
+}
+```
+
+This endpoint is used to fetch all courses that the user can self enroll themselves in. It returns a JSON object.
+### HTTP Request
+`
+GET https://api.redseed.me/api/v0/self_enroll
+`
+
+
+## Self Enrolling in a course
+```shell
+curl --location --request POST 'https://api.redseed.me/api/v0/self_enroll/{course.id}' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer {MY_API_TOKEN}' \
+--header 'Content-Type: application/json' \
+```
+> If the The above command is successful it will return a single training JSON resource :
+
+```json
+{
+    "id": 167,
+    "status": "NotStarted",
+    "percentComplete": null,
+    "seconds": 0,
+    "launch_url": "https:\/\/www.redseed.me\/training\/8392\/723938303\/1143945081\/167",
+    "dateCreatedAt": "2024-01-31T03:30:49.000000Z",
+    "dateStartedAt": "2024-01-31T03:30:49.000000Z",
+    "dateUpdatedAt": "2024-01-31T03:30:49.000000Z",
+    "dateCompletedAt": null,
+    "dateExpiresAt": null,
+    "dateDeletedAt": null,
+    "dateInactiveAt": "2024-02-14T03:30:49.000000Z",
+    "user": {
+        "id": 1143945081,
+        "firstName": "Xzavier",
+        "lastName": "Little",
+        "email": "angeline162@example.com",
+        "username": "160379",
+        "code": "72461363",
+        "type": "Trainee",
+        "status": "Active",
+        "marker": 0,
+        "locale": "en_NZ",
+        "dateLastLogin": null,
+        "dateCreatedAt": "2024-01-31T03:30:49.000000Z",
+        "dateUpdatedAt": "2024-01-31T03:30:49.000000Z",
+        "dateArchivedAt": null,
+        "dateActivityAt": "2024-01-31T03:30:49.000000Z"
+    },
+    "course": {
+        "id": 723938303,
+        "name": "Green Course",
+        "status": "Active",
+        "certificate": 1,
+        "activeVersion": {
+            "id": null,
+            "version_id": 1,
+            "launch_url": null,
+            "schema_version": "RedSeed",
+            "dateCreatedAt": null,
+            "dateUpdatedAt": null
+        },
+        "description": "A course about green",
+        "completion_time": 0,
+        "dateCreatedAt": "2024-01-31T03:30:49.000000Z",
+        "dateUpdatedAt": "2024-01-31T03:30:49.000000Z",
+        "dateReleasedAt": "2024-01-31T03:30:49.000000Z"
+    }
+}
+```
+
+This endpoint is used to self enroll a user in a course. It returns a JSON Training resource object.
+### HTTP Request
+`
+POST https://api.redseed.me/api/v0/self_enroll/{course.id}
+`

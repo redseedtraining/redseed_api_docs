@@ -360,6 +360,12 @@
                   <li>
                     <a href="#unenrolling-a-user-from-a-course" class="toc-h2 toc-link" data-title="Unenrolling a user from a course">Unenrolling a user from a course</a>
                   </li>
+                  <li>
+                    <a href="#getting-self-enrollable-courses" class="toc-h2 toc-link" data-title="Getting self-enrollable courses">Getting self-enrollable courses</a>
+                  </li>
+                  <li>
+                    <a href="#self-enrolling-in-a-course" class="toc-h2 toc-link" data-title="Self Enrolling in a course">Self Enrolling in a course</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -407,6 +413,9 @@
                   </li>
                   <li>
                     <a href="#training-completed" class="toc-h2 toc-link" data-title="Training completed">Training completed</a>
+                  </li>
+                  <li>
+                    <a href="#training-expired" class="toc-h2 toc-link" data-title="Training expired">Training expired</a>
                   </li>
                   <li>
                     <a href="#pathway-completed" class="toc-h2 toc-link" data-title="Pathway completed">Pathway completed</a>
@@ -1282,6 +1291,146 @@ DELETE https://api.redseed.me/api/v0/training/&lt;training_id&gt;
 <td>The id of the training record to remove.</td>
 </tr>
 </tbody></table>
+<h2 id='getting-self-enrollable-courses'>Getting self-enrollable courses</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'https://api.redseed.me/api/v0/self_enroll'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer {MY_API_TOKEN}'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">231852427</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Red Course"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"certificate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"activeVersion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">10724</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"version_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.html"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"schema_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xapi"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A course about Red"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"completion_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateReleasedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8908</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"leadership"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8909</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"product knowledge"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">786489599</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Blue Course"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"certificate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"activeVersion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">10725</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"version_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.html"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"schema_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xapi"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A course about Blue"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"completion_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateReleasedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:16:59.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8904</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coaching"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8905</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"leadership"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint is used to fetch all courses that the user can self enroll themselves in. It returns a JSON object.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>
+GET https://api.redseed.me/api/v0/self_enroll
+</code></p>
+<h2 id='self-enrolling-in-a-course'>Self Enrolling in a course</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'https://api.redseed.me/api/v0/self_enroll/{course.id}'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer {MY_API_TOKEN}'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+</code></pre></div>
+<blockquote>
+<p>If the The above command is successful it will return a single training JSON resource :</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">167</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NotStarted"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"percentComplete"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">www.redseed.me</span><span class="se">\/</span><span class="s2">training</span><span class="se">\/</span><span class="s2">8392</span><span class="se">\/</span><span class="s2">723938303</span><span class="se">\/</span><span class="s2">1143945081</span><span class="se">\/</span><span class="s2">167"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateStartedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateCompletedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateExpiresAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateDeletedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateInactiveAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-14T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1143945081</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Xzavier"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Little"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"angeline162@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160379"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"72461363"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trainee"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"marker"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"en_NZ"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateLastLogin"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateArchivedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateActivityAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"course"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">723938303</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green Course"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"certificate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"activeVersion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"version_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"launch_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"schema_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RedSeed"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A course about green"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"completion_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateReleasedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint is used to self enroll a user in a course. It returns a JSON Training resource object.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>
+POST https://api.redseed.me/api/v0/self_enroll/{course.id}
+</code></p>
 <h1 id='pathways'>Pathways</h1>
 <p>Pathways consist of a group of courses. In general, a pathway will enroll trainees in a course after they have completed the previous course in the pathway. Pathways can be used to create a structured learning program for trainees.</p>
 <h2 id='pathway-attributes'>Pathway Attributes</h2>
@@ -1556,7 +1705,7 @@ DELETE https://api.redseed.me/api/v0/user_pathways/&lt;user_pathway_id&gt;
 <td>The ratio of enrollments that are training OR Completed</td>
 </tr>
 </tbody></table>
-<h2 id='getting-engagement'>Getting Engagement</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/engagement/&lt;location_id&gt;'</span> <span class="se">\</span>
+<h2 id='getting-engagement'>Getting Engagement</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/engagement_summary/&lt;location_id&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
 
 
@@ -1583,14 +1732,14 @@ DELETE https://api.redseed.me/api/v0/user_pathways/&lt;user_pathway_id&gt;
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint is used to fetch a list of users. It returns a JSON object that includes an array of user resources.</p>
+<p>This endpoint is used to fetch a summary of the engagement at a specific location. If no location is specified, the organisations&#39;s top location will be used. The response will contain the number of enrollments that are Not Started, Training, Inactive, and Completed, as well as the total number of enrollments, and the engagement ratio. The engagement ratio is calculated as the number of enrollments that are Training or Completed, divided by the total number of enrollments. The response includes the enrolments at child locations.</p>
 <h3 id='http-requests'>HTTP Requests</h3>
 <p><code>
-GET https://api.redseed.me/api/v0/engagement
+GET https://api.redseed.me/api/v0/engagement_summary
 </code></p>
 
 <p><code>
-GET https://api.redseed.me/api/v0/engagement/&lt;location_id&gt;
+GET https://api.redseed.me/api/v0/engagement_summary/&lt;location_id&gt;
 </code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -1719,6 +1868,39 @@ GET https://api.redseed.me/api/v0/engagement/&lt;location_id&gt;
 
 </span></code></pre></div>
 <p>This event is triggered when a user completes a course. </p>
+<h2 id='training-expired'>Training expired</h2>
+<blockquote>
+<p>The &quot;TrainingExpired&quot; webhook payload contains a training resource, including the user, coach, and course resources.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TrainingExpired"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1754313</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Completed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"percentComplete"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">312</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-11T02:24:26.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateStartedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-30T03:11:39.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateCompletedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-30T03:11:39.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateExpiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-09-30T03:11:39.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateDeletedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateInactiveAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">User</span><span class="w"> </span><span class="err">resource</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"coach"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">User</span><span class="w"> </span><span class="err">resource</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"course"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">Course</span><span class="w"> </span><span class="err">resource</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This event is triggered when a user&#39;s training expires. Training is checked for expiry every hour, on the hour.</p>
 <h2 id='pathway-completed'>Pathway completed</h2>
 <blockquote>
 <p>The &quot;UserPathwayCompleted&quot; webhook payload contains a UserPathway resource, including the user, coach, and course resources.</p>
