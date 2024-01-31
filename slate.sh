@@ -31,7 +31,7 @@ Deploy options:
 
 
 run_serve() {
-  exec bundle exec middleman serve --watcher-force-polling
+  exec bundle exec bundle exec middleman serve --watcher-force-polling --watcher-force-polling
 }
 
 run_build() {
