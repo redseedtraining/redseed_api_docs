@@ -1,0 +1,47 @@
+The contents of the updated ".github/workflows/main.yml" file:
+
+name: Build Documentation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Build documentation
+        run: bundle exec middleman build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
+
+This updated workflow configuration performs the following steps:
+1. Checks out the repository.
+2. Sets up Ruby version 2.7.
+3. Installs the required dependencies using Bundler.
+4. Builds the documentation using the "bundle exec middleman build" command.
+5. Deploys the built documentation to the "gh-pages" branch using the "peaceiris/actions-gh-pages" action.
+
+Commit message: "feat: Update GitHub Actions workflow configuration for building documentation"
