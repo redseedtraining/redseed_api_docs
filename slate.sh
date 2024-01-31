@@ -35,7 +35,9 @@ run_serve() {
 }
 
 run_build() {
-  bundle exec middleman build --clean
+  set -e
+  echo "Building Slate documentation..."
+  bundle exec middleman build --clean || { echo "Error: Build process failed."; exit 1; }
 }
 
 parse_args() {
@@ -192,6 +194,7 @@ commit+push() {
 
 #echo expanded commands as they are executed (for debugging)
 enable_expanded_output() {
+  set -o xtrace
   if [ $verbose ]; then
     set -o xtrace
     set +o verbose
@@ -200,6 +203,7 @@ enable_expanded_output() {
 
 #this is used to avoid outputting the repo URL, which may contain a secret token
 disable_expanded_output() {
+  set +o xtrace
   if [ $verbose ]; then
     set +o xtrace
     set -o verbose
@@ -239,6 +243,10 @@ parse_args "$@"
 if [ "${command}" = "serve" ]; then
   run_serve
 elif [[ "${command}" = "build" ]]; then
+  if [[ ${?} -ne 0 ]]; then
+  echo "Error in the build process, please check the logs for details." >&2
+  exit ${?}
+fi
   run_build
 elif [[ ${command} = "deploy" ]]; then
   if [[ ${no_build} != true ]]; then
