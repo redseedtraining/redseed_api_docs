@@ -12,6 +12,20 @@ Attribute | Type | Description
 `dateCreatedAt` | datetime | The date the pathway was created.
 `dateUpdatedAt` | datetime | The date the pathway was last updated.
 `dateDeletedAt` | datetime | The date the pathway was deleted.
+`enrollment_rules` | Enrollment Rule | Enrollment rule resources associated with this pathway.
+
+## Enrollment Rules
+
+Attribute | Type | Description
+--------- | ------- | -----------
+`id` | string | A uuid that uniquely identifies the pathway 
+`position` | integer | This enrollment rules position / order
+`type` | text | INITIAL or COMPLETE. Initial rules don't require a completed course. COMPLETE rules require a course to be completed.
+`incomingCourse` | Course | The status of the pathway. Can be 'Active' or 'Locked'
+`enrollCourse` | Course | The date the pathway was created.
+`delay` | integer | Used to wait a number of days after the incoming Course has been completed
+`created_at` | datetime | The date the enrollment rule was created.
+`updated_at` | datetime | the date the enrollment rule was last updated.
 
 ## Getting pathways
 ```shell
