@@ -406,6 +406,9 @@
                     <a href="#pathway-attributes" class="toc-h2 toc-link" data-title="Pathway Attributes">Pathway Attributes</a>
                   </li>
                   <li>
+                    <a href="#enrollment-rules" class="toc-h2 toc-link" data-title="Enrollment Rules">Enrollment Rules</a>
+                  </li>
+                  <li>
                     <a href="#getting-pathways" class="toc-h2 toc-link" data-title="Getting pathways">Getting pathways</a>
                   </li>
                   <li>
@@ -1780,6 +1783,60 @@ POST https://api.redseed.me/api/v0/self_enroll/{course.id}
 <td><code>dateDeletedAt</code></td>
 <td>datetime</td>
 <td>The date the pathway was deleted.</td>
+</tr>
+<tr>
+<td><code>enrollment_rules</code></td>
+<td>Enrollment Rule</td>
+<td>Enrollment rule resources associated with this pathway.</td>
+</tr>
+</tbody></table>
+<h2 id='enrollment-rules'>Enrollment Rules</h2>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td>A uuid that uniquely identifies the pathway</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>integer</td>
+<td>This enrollment rules position / order</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>text</td>
+<td>INITIAL or COMPLETE. Initial rules don&#39;t require a completed course. COMPLETE rules require a course to be completed.</td>
+</tr>
+<tr>
+<td><code>incomingCourse</code></td>
+<td>Course</td>
+<td>The status of the pathway. Can be &#39;Active&#39; or &#39;Locked&#39;</td>
+</tr>
+<tr>
+<td><code>enrollCourse</code></td>
+<td>Course</td>
+<td>The date the pathway was created.</td>
+</tr>
+<tr>
+<td><code>delay</code></td>
+<td>integer</td>
+<td>Used to wait a number of days after the incoming Course has been completed</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>datetime</td>
+<td>The date the enrollment rule was created.</td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td>datetime</td>
+<td>the date the enrollment rule was last updated.</td>
 </tr>
 </tbody></table>
 <h2 id='getting-pathways'>Getting pathways</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/pathways'</span> <span class="se">\</span>
