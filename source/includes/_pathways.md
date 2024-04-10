@@ -18,11 +18,11 @@ Attribute | Type | Description
 
 Attribute | Type | Description
 --------- | ------- | -----------
-`id` | string | A uuid that uniquely identifies the pathway 
-`position` | integer | This enrollment rules position / order
+`id` | string | A uuid that uniquely identifies the enrollment rule 
+`position` | integer | the enrollment rule position / order
 `type` | text | INITIAL or COMPLETE. Initial rules don't require a completed course. COMPLETE rules require a course to be completed.
-`incomingCourse` | Course | The status of the pathway. Can be 'Active' or 'Locked'
-`enrollCourse` | Course | The date the pathway was created.
+`completeCourse` | Course | The course that needs to be completed for this enrollment rule to be satisified.
+`enrollCourse` | Course | The course that this rule will enroll a user in when it is satisfied
 `delay` | integer | Used to wait a number of days after the incoming Course has been completed
 `created_at` | datetime | The date the enrollment rule was created.
 `updated_at` | datetime | the date the enrollment rule was last updated.
@@ -83,12 +83,50 @@ curl --location --request GET 'https://api.redseed.me/api/v0/pathways/d6ad3424-e
 {
     "data": {
         "id": "d6ad3424-ef9c-466c-b783-80a688645ce5",
-        "name": "Test",
-        "description": "test",
+        "name": "Pathway Name",
+        "description": "This pathway contains courses about the colour red and blue.",
         "status": "Active",
         "dateCreatedAt": "2023-06-20T21:22:05.000000Z",
         "dateUpdatedAt": "2023-06-20T21:22:05.000000Z",
-        "dateDeletedAt": null
+        "dateDeletedAt": null,
+        "enrollment_rules" : [
+            {
+                "id" : 176,
+                "position" : 1,
+                "type" : "INITIAL",
+                "completeCourse" : null,
+                "enrollCourse" : {
+                    "id" : 676577838,
+                    "name" : "Lake Savanah",
+                    "status" : "Active",
+                    "description" : null,
+                    "completion_time" : 0,
+                    "dateCreatedAt" : null,
+                    "dateUpdatedAt" : null,
+                    "dateReleasedAt" : null,
+                    "image_url" : "https://www.redseed.me/images/courses/course_default.png"
+                },
+                "delay" : 0,
+                "created_at" : "2023-02-13T23:30:00.000000Z",
+                "updated_at" : "2023-02-13T23:30:00.000000Z",
+            },
+            {
+                "id" : 177,
+                "position" : 2,
+                "type" : "COMPLETE",
+                "completeCourse" : {
+                    "id" : 676577838,
+                    "name" : "Lake Savanah",
+                    "status" : "Active",
+                    "description" : null,
+                    "completion_time" : 0,
+                    "dateCreatedAt" : null,
+                    "dateUpdatedAt" : null,
+                    "dateReleasedAt" : "-000001-11-29T12:20:56.000000Z",
+                    "image_url" : "https://www.redseed.me/images/courses/course_default.png",
+                }
+            }
+        ]
     }
 }
 ```
