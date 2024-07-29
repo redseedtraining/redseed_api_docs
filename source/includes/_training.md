@@ -15,6 +15,7 @@ Attribute | Type | Description
 `dateStartedAt` | datetime | When the trainee started the training.
 `dateUpdatedAt` | datetime | When the training record was last updated.
 `dateCompletedAt` | datetime | When the trainee completed the training.
+`dateDueAt` | datetime | When the training is due to be completed.
 `dateExpiresAt` | datetime | When the training expires. This is set when the training is created and is based on the course's expiry period.
 `dateDeletedAt` | datetime | When the training record was deleted. This is set when the training is deleted.
 `dateInactiveAt` | datetime | When the training will be - or was - marked as inactive. This is set when the training is marked as inactive.
