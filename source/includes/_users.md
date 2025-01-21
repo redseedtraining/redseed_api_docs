@@ -18,6 +18,7 @@ Attribute | Type | Description
 `marker` | boolean | Should this user be able to assess other users' coached activities?
 `dateLastLogin` | datetime | The last time the user successfully logged in
 `dateArchivedAt` | datetime | The datetime the user was last archived
+`dateDeletedAt` | datetime | The datetime the user was deleted
 `dateActivityAt` | datetime | The last recorded activity of the user
 `dateCreatedAt` | datetime | The datetime the user record was created at
 `dateUpdatedAt` | datetime | The datetime the user record was last updated
@@ -76,6 +77,8 @@ curl --location --request GET 'https://api.redseed.me/api/v0/users' \
 This endpoint is used to fetch a list of users. It returns a JSON object that includes an array of user resources.
 
 Results are returned in pages of 100 users. You can specify the page number to return using the `page` query parameter. If no page is specified, the first page will be returned.
+
+Users that have been deleted will not be returned in the results.
 
 ### HTTP Requests
 `
@@ -305,3 +308,46 @@ Attribute | Type | Required / Optional
 `role.id` | Integer | Optional
 
 See <a href="#user-attributes">User Attributes</a> for more information.
+
+## Deleting a user
+
+Users that have been deleted will not be returned in any other API responses. There is currently no way to restore a deleted user via the API. Please contact support if you need to restore a deleted user.
+
+```shell
+curl --location --request DELETE 'https://api.redseed.me/api/v0/users/188291' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer {MY_API_TOKEN}' \
+--header 'Content-Type: application/json'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "id": 188291,
+    "firstName": "API Test",
+    "lastName": "User",
+    "email": "newEmailAddress@mail.com",
+    "username": "apitest1",
+    "code": null,
+    "type": "HR",
+    "status": "Active",
+    "marker": 1,
+    "locale": "en_NZ",
+    "dateLastLogin": "2023-06-07 16:09:40",
+    "dateCreatedAt": "2023-05-30T03:39:33.000000Z",
+    "dateUpdatedAt": "2023-06-23T01:01:06.000000Z",
+    "dateArchivedAt": null,
+    "dateDeletedAt": "2025-01-22T08:15:00.000000Z",
+    "dateActivityAt": "2023-06-07T04:11:24.000000Z"
+}
+```
+### HTTP Request
+`
+DELETE https://api.redseed.me/api/v0/users/<user_id>
+`
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+`<user_id>` | The ID of the user
