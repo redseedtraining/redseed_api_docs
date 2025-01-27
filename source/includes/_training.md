@@ -23,6 +23,8 @@ Attribute | Type | Description
 `coach` | UserResource | The coach assigned to this training.
 `course` | CourseResource | The course this training is for.
 `courseVersion` | CourseVersionResource | The course version this training is for.
+`media` | MediaResource | Any media associated with this training.
+`tags` | Array of TagResources | Any tags associated with this training.
 
 ## Getting training resources
 ```shell
@@ -131,7 +133,25 @@ curl --location --request GET 'https://api.redseed.me/api/v0/training/297065' \
         },
         "courseVersion": {
           // Course Version Resource
-        }
+        },
+        "media": {
+          // Media Resource
+        },
+        //Array of Tag Resources
+        "tags": [
+            {
+                "id": 13,
+                "name": "red"
+            },
+            {
+                "id": 14,
+                "name": "blue"
+            },
+            {
+                "id": 16,
+                "name": "green"
+            }
+        ]
     }
 }
 ```
