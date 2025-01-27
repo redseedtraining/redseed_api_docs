@@ -1423,6 +1423,16 @@ GET https://api.redseed.me/api/v0/course/&lt;course.id&gt;
 <td>CourseVersionResource</td>
 <td>The course version this training is for.</td>
 </tr>
+<tr>
+<td><code>media</code></td>
+<td>MediaResource</td>
+<td>Any media associated with this training.</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>Array of TagResources</td>
+<td>Any tags associated with this training.</td>
+</tr>
 </tbody></table>
 <h2 id='getting-training-resources'>Getting training resources</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/training'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
@@ -1541,7 +1551,25 @@ GET https://api.redseed.me/api/v0/training/?location_id=&lt;location_id&gt;&amp;
         </span><span class="p">},</span><span class="w">
         </span><span class="nl">"courseVersion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="err">//</span><span class="w"> </span><span class="err">Course</span><span class="w"> </span><span class="err">Version</span><span class="w"> </span><span class="err">Resource</span><span class="w">
-        </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"media"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="err">//</span><span class="w"> </span><span class="err">Media</span><span class="w"> </span><span class="err">Resource</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">//Array</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">Tag</span><span class="w"> </span><span class="err">Resources</span><span class="w">
+        </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"red"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blue"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"green"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
