@@ -399,3 +399,83 @@ This endpoint is used to self enroll a user in a course. It returns a JSON Train
 `
 POST https://api.redseed.me/api/v0/self_enroll/{course.id}
 `
+
+## Updating a training record
+```shell
+curl --location --request PUT 'https://api.redseed.me/api/v0/training/297065' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer {MY_API_TOKEN}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "status": "Training",
+    "coach": {
+        "id": 70152
+    },
+    "courseVersion": 1951,
+    "dateStartedAt": "2024-01-31T03:30:49+0000",
+    "dateCompletedAt": null,
+    "dateExpiresAt": null,
+    "dateDeletedAt": null
+}'
+```
+
+> The above command returns the updated training resource:
+
+```json
+{
+    "data": {
+        "id": 297065,
+        "status": "Training",
+        "percentComplete": 0,
+        "seconds": 0,
+        "dateCreatedAt": "2017-09-15T01:24:53.000000Z",
+        "dateStartedAt": "2024-01-31T03:30:49.000000Z",
+        "dateUpdatedAt": "2024-01-31T03:30:49.000000Z",
+        "dateCompletedAt": null,
+        "dateExpiresAt": null,
+        "dateDeletedAt": null,
+        "dateInactiveAt": null,
+        "user": {
+            // User Resource
+        },
+        "coach": {
+            "id": 70152,
+            // Rest of coach resource
+        },
+        "course": {
+            // Course Resource
+        },
+        "courseVersion": {
+            // Course Version Resource
+        },
+        "tags": [
+            // Tag Resources
+        ]
+    }
+}
+```
+
+This endpoint updates an existing training record. It returns the updated training resource.
+
+### HTTP Request
+`PUT https://api.redseed.me/api/v0/training/<training_id>`
+
+### URL Parameters
+Parameter | Description
+--------- | -----------
+`<training_id>` | The ID of the training record to update
+
+### Body Parameters
+Parameter | Type | Required | Description
+--------- | ---- | -------- | -----------
+`status` | string | Required | Must be one of: 'Training', 'Coaching', 'NotStarted', or 'Completed'
+`coach.id` | integer | Required | ID of an active coach in the client's organization
+`courseVersion` | integer | Required | ID of a valid version for the training's course
+`dateStartedAt` | datetime | Optional | When the training was started. Format: ISO 8601 with timezone
+`dateCompletedAt` | datetime | Optional | When the training was completed. Format: ISO 8601 with timezone
+`dateExpiresAt` | datetime | Optional | When the training expires. Format: ISO 8601 with timezone
+`dateDeletedAt` | datetime | Optional | When the training was deleted. Format: ISO 8601 with timezone
+
+<aside class="notice">
+Some attributes like user ID, course ID, created date, etc. cannot be modified through this endpoint. To change the user or course, delete the existing training and create a new one.
+</aside>
