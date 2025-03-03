@@ -11,6 +11,7 @@ Attribute | Type | Description
 `status` | text | 'Training', 'Coaching', 'NotStarted', 'Completed' - Training status.
 `percentComplete` | integer | How far through the training the user is. This is a percentage value.
 `seconds` | integer | How many seconds the trainee has spent on the training.
+`external_launch_url` | string | Optional URL for launching external training content. Used for external courses.
 `dateCreatedAt` | datetime | When the trainee was enrolled in the course.
 `dateStartedAt` | datetime | When the trainee started the training.
 `dateUpdatedAt` | datetime | When the training record was last updated.
@@ -89,6 +90,10 @@ GET https://api.redseed.me/api/v0/training/?coach_id[]=<coach_id>&course_id[]=<c
 GET https://api.redseed.me/api/v0/training/?location_id=<location_id>&course_id[]=<course_id>
 `
 
+`
+GET https://api.redseed.me/api/v0/training/?external_ref_id[]=<external_ref_id>&external_ref_id[]=<external_ref_id>
+`
+
 ### URL Parameters
 
 Parameter | Description
@@ -98,6 +103,7 @@ Parameter | Description
 `user_id[]` | retrieve training for this user. Supports multiple values.
 `coach_id[]` | retrieve training records assigned to this coach. Supports multiple values.
 `course_id[]` | retrieve training records for this course. Supports multiple values.
+`external_ref_id[]` | retrieve training records for courses with these external reference IDs. Supports multiple values.
 
 
 ## Getting training details
@@ -115,6 +121,7 @@ curl --location --request GET 'https://api.redseed.me/api/v0/training/297065' \
         "status": "NotStarted",
         "percentComplete": 0,
         "seconds": 0,
+        "external_launch_url": "https://www.example.org/training/123",
         "dateCreatedAt": "2017-09-15T01:24:53.000000Z",
         "dateStartedAt": null,
         "dateUpdatedAt": "2021-07-12T03:21:32.000000Z",
@@ -185,7 +192,8 @@ curl --location --request POST 'https://api.redseed.me/api/v0/training' \
     },
     "course": {
         "id": 2943
-    }
+    },
+    "external_launch_url": "https://www.example.org/1"
 }'
 ```
 > The above command returns JSON structured like this:
@@ -196,6 +204,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/training' \
     "status": "NotStarted",
     "percentComplete": 0,
     "seconds": 0,
+    "external_launch_url": "https://www.example.org/1",
     "dateCreatedAt": "2023-06-26T02:41:27.000000Z",
     "dateStartedAt": null,
     "dateUpdatedAt": "2023-06-26T02:41:27.000000Z",
@@ -230,6 +239,7 @@ Attribute | Type | Required / Optional
 `user.id` | integer | Required
 `coach.id` | integer | Required
 `course.id` | integer | Required
+`external_launch_url` | string | Optional - URL for launching external training content
 
 
 See <a href="#training-attributes">Training Attributes</a> for more information.
@@ -339,7 +349,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/self_enroll/{cours
 --header 'Authorization: Bearer {MY_API_TOKEN}' \
 --header 'Content-Type: application/json' \
 ```
-> If the The above command is successful it will return a single training JSON resource :
+> If the above command is successful it will return a single training JSON resource:
 
 ```json
 {
@@ -348,6 +358,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/self_enroll/{cours
     "percentComplete": null,
     "seconds": 0,
     "launch_url": "https:\/\/www.redseed.me\/training\/8392\/723938303\/1143945081\/167",
+    "external_launch_url": "https://www.example.org/self-enroll/123",
     "dateCreatedAt": "2024-01-31T03:30:49.000000Z",
     "dateStartedAt": "2024-01-31T03:30:49.000000Z",
     "dateUpdatedAt": "2024-01-31T03:30:49.000000Z",
@@ -395,10 +406,13 @@ curl --location --request POST 'https://api.redseed.me/api/v0/self_enroll/{cours
 ```
 
 This endpoint is used to self enroll a user in a course. It returns a JSON Training resource object.
+
 ### HTTP Request
-`
-POST https://api.redseed.me/api/v0/self_enroll/{course.id}
-`
+`POST https://api.redseed.me/api/v0/self_enroll/{course.id}`
+
+<aside class="notice">
+For external courses, the response will include an `external_launch_url` field. To set or modify this URL, use the training update endpoint after self-enrollment.
+</aside>
 
 ## Updating a training record
 ```shell
@@ -412,6 +426,7 @@ curl --location --request PUT 'https://api.redseed.me/api/v0/training/297065' \
         "id": 70152
     },
     "courseVersion": 1951,
+    "external_launch_url": "https://www.example.org/updated",
     "dateStartedAt": "2024-01-31T03:30:49+0000",
     "dateCompletedAt": null,
     "dateExpiresAt": null,
@@ -428,6 +443,7 @@ curl --location --request PUT 'https://api.redseed.me/api/v0/training/297065' \
         "status": "Training",
         "percentComplete": 0,
         "seconds": 0,
+        "external_launch_url": "https://www.example.org/updated",
         "dateCreatedAt": "2017-09-15T01:24:53.000000Z",
         "dateStartedAt": "2024-01-31T03:30:49.000000Z",
         "dateUpdatedAt": "2024-01-31T03:30:49.000000Z",
@@ -471,6 +487,7 @@ Parameter | Type | Required | Description
 `status` | string | Required | Must be one of: 'Training', 'Coaching', 'NotStarted', or 'Completed'
 `coach.id` | integer | Required | ID of an active coach in the client's organization
 `courseVersion` | integer | Required | ID of a valid version for the training's course
+`external_launch_url` | string | Optional | URL for launching external training content
 `dateStartedAt` | datetime | Optional | When the training was started. Format: ISO 8601 with timezone
 `dateCompletedAt` | datetime | Optional | When the training was completed. Format: ISO 8601 with timezone
 `dateExpiresAt` | datetime | Optional | When the training expires. Format: ISO 8601 with timezone

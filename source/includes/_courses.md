@@ -110,14 +110,25 @@ Fetch course 2205 :<br>
 Fetch courses 3306 & 3307 :<br>
 `GET https://api.redseed.me/api/v0/courses/?course_id[]=3306&course_id[]=3307`
 
+Fetch only external courses :<br>
+`GET https://api.redseed.me/api/v0/courses/?external=1`
+
+Fetch only non-external courses :<br>
+`GET https://api.redseed.me/api/v0/courses/?external=0`
+
+Fetch courses with specific external reference IDs :<br>
+`GET https://api.redseed.me/api/v0/courses/?external_ref_id[]=123&external_ref_id[]=789`
+
 
 ### Query Parameters
 
-Parameter    | Default | Description
------------- | ------- | -----------
-page         | 1       | The page of results to retrieve. If no page is specified, the first page will be returned.
-course_id[]  | -       | retrieve this course resource. Supports multiple values.
-status[]     | All     | retrive courses with this course type only. Supports multiple values.
+Parameter        | Default | Description
+---------------- | ------- | -----------
+page             | 1       | The page of results to retrieve. If no page is specified, the first page will be returned.
+course_id[]      | -       | Retrieve this course resource. Supports multiple values.
+status[]         | All     | Retrieve courses with this course type only. Supports multiple values.
+external         | All     | Filter courses by external flag. Use `1` for external courses, `0` for non-external courses.
+external_ref_id[] | -      | Retrieve courses with specific external reference IDs. Supports multiple values.
 
 <aside class="success">
 If you select a single course via the course_id[] parameter the course resource will still be returned inside an array!
@@ -159,5 +170,129 @@ GET https://api.redseed.me/api/v0/course/<course.id>
 Parameter | Description
 --------- | -----------
 `<course.id>` | The ID of the course resource to retrieve.
+
+## Creating a course
+```shell
+curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer {MY_API_TOKEN}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Test Course",
+    "description": "Test Description",
+    "status": "Active",
+    "categories": [
+        {"id": 8908},
+        {"id": 8909}
+    ],
+    "config": {
+        "external_ref_id": "1234567890",
+        "external_url": "https://example.com"
+    },
+    "versions": [
+        {"schema": "External"}
+    ]
+}'
+```
+> The above command returns JSON structured like this:
+
+```json
+{
+    "id": 42694364,
+    "ulid": "01HF5GXCQ8JTDM3KPVS6QWERTY",
+    "name": "Test Course",
+    "description": "Test Description",
+    "status": "Active",
+    "categories": [
+        {
+            "id": 8908,
+            "name": "red"
+        },
+        {
+            "id": 8909,
+            "name": "blue"
+        }
+    ],
+    "activeVersion": {
+        "id": 14,
+        "version_id": 1,
+        "schema": "External",
+        "preview_url": null,
+        "dateCreatedAt": "2023-02-10T14:30:00.000000Z",
+        "dateUpdatedAt": "2023-02-10T14:30:00.000000Z"
+    },
+    "completion_time": null,
+    "dateCreatedAt": "2023-02-10T14:30:00.000000Z",
+    "dateUpdatedAt": "2023-02-10T14:30:00.000000Z",
+    "dateReleasedAt": null,
+    "image_url": "https://redseed.me/images/default-course.png",
+    "config": {
+        "id": 12345,
+        "bulk_enroll": 0,
+        "certificate": 0,
+        "due_days": null,
+        "expires_at": null,
+        "expires_reminder_days": null,
+        "expiresat_months": null,
+        "inactive_days": 14,
+        "multiple_enrollments": 0,
+        "self_enroll": 0,
+        "training_points": null,
+        "workbook": 0,
+        "external_ref_id": "1234567890",
+        "external_url": "https://example.com"
+    },
+    "versions": [
+        {
+            "id": 14,
+            "version_id": 1,
+            "schema": "External",
+            "preview_url": null,
+            "dateCreatedAt": "2023-02-10T14:30:00.000000Z",
+            "dateUpdatedAt": "2023-02-10T14:30:00.000000Z"
+        }
+    ]
+}
+```
+
+This endpoint creates a new course. It returns a JSON object containing the created course resource.
+
+### HTTP Request
+`POST https://api.redseed.me/api/v0/courses`
+
+### Body Parameters
+Parameter | Type | Required | Description
+--------- | ---- | -------- | -----------
+`name` | string | Required | The name of the course
+`description` | string | Optional | A description of the course
+`status` | string | Required | Must be one of: 'Active', 'Locked', or 'Inactive'
+`categories` | array | Optional | Array of category objects with `id` field referencing existing course categories
+`config` | object | Optional | Configuration options for the course
+`config.external_ref_id` | string | Optional | External reference ID for the course
+`config.external_url` | string | Optional | Valid URL for external courses
+`versions` | array | Required | At least one version object must be provided
+`versions[].schema` | string | Required | The schema type for the version, e.g., 'External'
+
+<aside class="notice">
+Course images cannot be set or edited via the API. Users must log in to the RedSeed application to upload or change course images.
+</aside>
+
+## Updating a course
+
+```shell
+# This endpoint is not yet available
+```
+
+> This feature is coming soon
+
+The ability to update existing courses via the API is currently under development and will be available in a future release. This will allow you to modify course attributes, categories, and configuration settings.
+
+In the meantime, please use the RedSeed application interface to make changes to existing courses.
+
+### Coming Soon
+- Update course details (name, description, status)
+- Modify course categories
+- Change course configuration settings
+- Update course versions
 
 
