@@ -187,7 +187,10 @@ curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
     ],
     "config": {
         "external_ref_id": "1234567890",
-        "external_url": "https://example.com"
+        "external_url": "https://example.com",
+        "bulk_enroll": true,
+        "self_enroll": false,
+        "training_points": 10
     },
     "versions": [
         {"schema": "External"}
@@ -228,7 +231,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
     "image_url": "https://redseed.me/images/default-course.png",
     "config": {
         "id": 12345,
-        "bulk_enroll": 0,
+        "bulk_enroll": 1,
         "certificate": 0,
         "due_days": null,
         "expires_at": null,
@@ -237,7 +240,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
         "inactive_days": 14,
         "multiple_enrollments": 0,
         "self_enroll": 0,
-        "training_points": null,
+        "training_points": 10,
         "workbook": 0,
         "external_ref_id": "1234567890",
         "external_url": "https://example.com"
@@ -260,6 +263,7 @@ This endpoint creates a new course. It returns a JSON object containing the crea
 ### HTTP Request
 `POST https://api.redseed.me/api/v0/courses`
 
+
 ### Body Parameters
 Parameter | Type | Required | Description
 --------- | ---- | -------- | -----------
@@ -270,6 +274,9 @@ Parameter | Type | Required | Description
 `config` | object | Optional | Configuration options for the course
 `config.external_ref_id` | string | Optional | External reference ID for the course
 `config.external_url` | string | Optional | Valid URL for external courses
+`config.bulk_enroll` | boolean | Optional | Whether bulk enrollment is enabled for this course
+`config.self_enroll` | boolean | Optional | Whether self-enrollment is enabled for this course
+`config.training_points` | number | Optional | Number of training points awarded for completing this course
 `versions` | array | Required | At least one version object must be provided
 `versions[].schema` | string | Required | The schema type for the version, e.g., 'External'
 
