@@ -374,6 +374,12 @@
                   <li>
                     <a href="#getting-course-details" class="toc-h2 toc-link" data-title="Getting course details">Getting course details</a>
                   </li>
+                  <li>
+                    <a href="#creating-a-course" class="toc-h2 toc-link" data-title="Creating a course">Creating a course</a>
+                  </li>
+                  <li>
+                    <a href="#updating-a-course" class="toc-h2 toc-link" data-title="Updating a course">Updating a course</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1270,6 +1276,15 @@ DELETE https://api.redseed.me/api/v0/users/&lt;user_id&gt;
 
 <p>Fetch courses 3306 &amp; 3307 :<br>
 <code>GET https://api.redseed.me/api/v0/courses/?course_id[]=3306&amp;course_id[]=3307</code></p>
+
+<p>Fetch only external courses :<br>
+<code>GET https://api.redseed.me/api/v0/courses/?external=1</code></p>
+
+<p>Fetch only non-external courses :<br>
+<code>GET https://api.redseed.me/api/v0/courses/?external=0</code></p>
+
+<p>Fetch courses with specific external reference IDs :<br>
+<code>GET https://api.redseed.me/api/v0/courses/?external_ref_id[]=123&amp;external_ref_id[]=789</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -1286,12 +1301,22 @@ DELETE https://api.redseed.me/api/v0/users/&lt;user_id&gt;
 <tr>
 <td>course_id[]</td>
 <td>-</td>
-<td>retrieve this course resource. Supports multiple values.</td>
+<td>Retrieve this course resource. Supports multiple values.</td>
 </tr>
 <tr>
 <td>status[]</td>
 <td>All</td>
-<td>retrive courses with this course type only. Supports multiple values.</td>
+<td>Retrieve courses with this course type only. Supports multiple values.</td>
+</tr>
+<tr>
+<td>external</td>
+<td>All</td>
+<td>Filter courses by external flag. Use <code>1</code> for external courses, <code>0</code> for non-external courses.</td>
+</tr>
+<tr>
+<td>external_ref_id[]</td>
+<td>-</td>
+<td>Retrieve courses with specific external reference IDs. Supports multiple values.</td>
 </tr>
 </tbody></table>
 
@@ -1336,6 +1361,195 @@ GET https://api.redseed.me/api/v0/course/&lt;course.id&gt;
 <td>The ID of the course resource to retrieve.</td>
 </tr>
 </tbody></table>
+<h2 id='creating-a-course'>Creating a course</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'https://api.redseed.me/api/v0/courses'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer {MY_API_TOKEN}'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+    "name": "Test Course",
+    "description": "Test Description",
+    "status": "Active",
+    "categories": [
+        {"id": 8908},
+        {"id": 8909}
+    ],
+    "config": {
+        "external_ref_id": "1234567890",
+        "external_url": "https://example.com",
+        "bulk_enroll": true,
+        "self_enroll": false,
+        "training_points": 10
+    },
+    "versions": [
+        {"schema": "External"}
+    ]
+}'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42694364</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ulid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01HF5GXCQ8JTDM3KPVS6QWERTY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Course"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Description"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8908</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"red"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8909</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blue"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"activeVersion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"version_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"External"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"preview_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-10T14:30:00.000000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-10T14:30:00.000000Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"completion_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-10T14:30:00.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-10T14:30:00.000000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateReleasedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://redseed.me/images/default-course.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"bulk_enroll"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"certificate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"due_days"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"expires_reminder_days"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"expiresat_months"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"inactive_days"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"multiple_enrollments"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"self_enroll"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"training_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"workbook"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"external_ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"external_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"versions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"version_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"External"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"preview_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-10T14:30:00.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-10T14:30:00.000000Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates a new course. It returns a JSON object containing the created course resource.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://api.redseed.me/api/v0/courses</code></p>
+<h3 id='body-parameters'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Required</td>
+<td>The name of the course</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string</td>
+<td>Optional</td>
+<td>A description of the course</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>string</td>
+<td>Required</td>
+<td>Must be one of: &#39;Active&#39;, &#39;Locked&#39;, or &#39;Inactive&#39;</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array</td>
+<td>Optional</td>
+<td>Array of category objects with <code>id</code> field referencing existing course categories</td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td>object</td>
+<td>Optional</td>
+<td>Configuration options for the course</td>
+</tr>
+<tr>
+<td><code>config.external_ref_id</code></td>
+<td>string</td>
+<td>Optional</td>
+<td>External reference ID for the course</td>
+</tr>
+<tr>
+<td><code>config.external_url</code></td>
+<td>string</td>
+<td>Optional</td>
+<td>Valid URL for external courses</td>
+</tr>
+<tr>
+<td><code>config.bulk_enroll</code></td>
+<td>boolean</td>
+<td>Optional</td>
+<td>Whether bulk enrollment is enabled for this course</td>
+</tr>
+<tr>
+<td><code>config.self_enroll</code></td>
+<td>boolean</td>
+<td>Optional</td>
+<td>Whether self-enrollment is enabled for this course</td>
+</tr>
+<tr>
+<td><code>config.training_points</code></td>
+<td>number</td>
+<td>Optional</td>
+<td>Number of training points awarded for completing this course</td>
+</tr>
+<tr>
+<td><code>versions</code></td>
+<td>array</td>
+<td>Required</td>
+<td>At least one version object must be provided</td>
+</tr>
+<tr>
+<td><code>versions[].schema</code></td>
+<td>string</td>
+<td>Required</td>
+<td>The schema type for the version, e.g., &#39;External&#39;</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Course images cannot be set or edited via the API. Users must log in to the RedSeed application to upload or change course images.
+</aside>
+<h2 id='updating-a-course'>Updating a course</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># This endpoint is not yet available</span>
+</code></pre></div>
+<blockquote>
+<p>This feature is coming soon</p>
+</blockquote>
+
+<p>The ability to update existing courses via the API is currently under development and will be available in a future release. This will allow you to modify course attributes, categories, and configuration settings.</p>
+
+<p>In the meantime, please use the RedSeed application interface to make changes to existing courses.</p>
+<h3 id='coming-soon'>Coming Soon</h3>
+<ul>
+<li>Update course details (name, description, status)</li>
+<li>Modify course categories</li>
+<li>Change course configuration settings</li>
+<li>Update course versions</li>
+</ul>
 <h1 id='training'>Training</h1>
 <p>Training resources join Users to Courses. A training resource is created when a user is enrolled in a course. A training resource is deleted when a user is unenrolled from a course. </p>
 <h2 id='training-attributes'>Training attributes</h2>
@@ -1365,6 +1579,11 @@ GET https://api.redseed.me/api/v0/course/&lt;course.id&gt;
 <td><code>seconds</code></td>
 <td>integer</td>
 <td>How many seconds the trainee has spent on the training.</td>
+</tr>
+<tr>
+<td><code>external_launch_url</code></td>
+<td>string</td>
+<td>Optional URL for launching external training content. Used for external courses.</td>
 </tr>
 <tr>
 <td><code>dateCreatedAt</code></td>
@@ -1496,6 +1715,10 @@ GET https://api.redseed.me/api/v0/training/?coach_id[]=&lt;coach_id&gt;&amp;cour
 <p><code>
 GET https://api.redseed.me/api/v0/training/?location_id=&lt;location_id&gt;&amp;course_id[]=&lt;course_id&gt;
 </code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?external_ref_id[]=&lt;external_ref_id&gt;&amp;external_ref_id[]=&lt;external_ref_id&gt;
+</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1523,6 +1746,10 @@ GET https://api.redseed.me/api/v0/training/?location_id=&lt;location_id&gt;&amp;
 <td><code>course_id[]</code></td>
 <td>retrieve training records for this course. Supports multiple values.</td>
 </tr>
+<tr>
+<td><code>external_ref_id[]</code></td>
+<td>retrieve training records for courses with these external reference IDs. Supports multiple values.</td>
+</tr>
 </tbody></table>
 <h2 id='getting-training-details'>Getting training details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/training/297065'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
@@ -1536,6 +1763,7 @@ GET https://api.redseed.me/api/v0/training/?location_id=&lt;location_id&gt;&amp;
         </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NotStarted"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"percentComplete"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"external_launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.org/training/123"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-15T01:24:53.000000Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"dateStartedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
         </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-07-12T03:21:32.000000Z"</span><span class="p">,</span><span class="w">
@@ -1606,7 +1834,8 @@ GET https://api.redseed.me/api/v0/training/&lt;training_id&gt;
     },
     "course": {
         "id": 2943
-    }
+    },
+    "external_launch_url": "https://www.example.org/1"
 }'</span>
 </code></pre></div>
 <blockquote>
@@ -1617,6 +1846,7 @@ GET https://api.redseed.me/api/v0/training/&lt;training_id&gt;
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NotStarted"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"percentComplete"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"external_launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.org/1"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-26T02:41:27.000000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateStartedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-26T02:41:27.000000Z"</span><span class="p">,</span><span class="w">
@@ -1665,6 +1895,11 @@ POST https://api.redseed.me/api/v0/training
 <td><code>course.id</code></td>
 <td>integer</td>
 <td>Required</td>
+</tr>
+<tr>
+<td><code>external_launch_url</code></td>
+<td>string</td>
+<td>Optional - URL for launching external training content</td>
 </tr>
 </tbody></table>
 
@@ -1771,7 +2006,7 @@ GET https://api.redseed.me/api/v0/self_enroll
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 </code></pre></div>
 <blockquote>
-<p>If the The above command is successful it will return a single training JSON resource :</p>
+<p>If the above command is successful it will return a single training JSON resource:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">167</span><span class="p">,</span><span class="w">
@@ -1779,6 +2014,7 @@ GET https://api.redseed.me/api/v0/self_enroll
     </span><span class="nl">"percentComplete"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nl">"seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">www.redseed.me</span><span class="se">\/</span><span class="s2">training</span><span class="se">\/</span><span class="s2">8392</span><span class="se">\/</span><span class="s2">723938303</span><span class="se">\/</span><span class="s2">1143945081</span><span class="se">\/</span><span class="s2">167"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"external_launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.org/self-enroll/123"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateStartedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
@@ -1826,9 +2062,11 @@ GET https://api.redseed.me/api/v0/self_enroll
 </span></code></pre></div>
 <p>This endpoint is used to self enroll a user in a course. It returns a JSON Training resource object.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>
-POST https://api.redseed.me/api/v0/self_enroll/{course.id}
-</code></p>
+<p><code>POST https://api.redseed.me/api/v0/self_enroll/{course.id}</code></p>
+
+<aside class="notice">
+For external courses, the response will include an `external_launch_url` field. To set or modify this URL, use the training update endpoint after self-enrollment.
+</aside>
 <h2 id='updating-a-training-record'>Updating a training record</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> PUT <span class="s1">'https://api.redseed.me/api/v0/training/297065'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Authorization: Bearer {MY_API_TOKEN}'</span> <span class="se">\</span>
@@ -1839,6 +2077,7 @@ POST https://api.redseed.me/api/v0/self_enroll/{course.id}
         "id": 70152
     },
     "courseVersion": 1951,
+    "external_launch_url": "https://www.example.org/updated",
     "dateStartedAt": "2024-01-31T03:30:49+0000",
     "dateCompletedAt": null,
     "dateExpiresAt": null,
@@ -1854,6 +2093,7 @@ POST https://api.redseed.me/api/v0/self_enroll/{course.id}
         </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Training"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"percentComplete"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"external_launch_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.org/updated"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"dateCreatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-15T01:24:53.000000Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"dateStartedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"dateUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T03:30:49.000000Z"</span><span class="p">,</span><span class="w">
@@ -1921,6 +2161,12 @@ POST https://api.redseed.me/api/v0/self_enroll/{course.id}
 <td>integer</td>
 <td>Required</td>
 <td>ID of a valid version for the training&#39;s course</td>
+</tr>
+<tr>
+<td><code>external_launch_url</code></td>
+<td>string</td>
+<td>Optional</td>
+<td>URL for launching external training content</td>
 </tr>
 <tr>
 <td><code>dateStartedAt</code></td>
