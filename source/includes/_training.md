@@ -94,6 +94,10 @@ GET https://api.redseed.me/api/v0/training/?location_id=<location_id>&course_id[
 GET https://api.redseed.me/api/v0/training/?external_ref_id[]=<external_ref_id>&external_ref_id[]=<external_ref_id>
 `
 
+`
+GET https://api.redseed.me/api/v0/training/?tag[]=red&tag[]=blue
+`
+
 ### URL Parameters
 
 Parameter | Description
@@ -104,6 +108,7 @@ Parameter | Description
 `coach_id[]` | retrieve training records assigned to this coach. Supports multiple values.
 `course_id[]` | retrieve training records for this course. Supports multiple values.
 `external_ref_id[]` | retrieve training records for courses with these external reference IDs. Supports multiple values.
+`tag[]` | retrieve training records that have these tags. Supports multiple values.
 
 
 ## Getting training details
@@ -430,7 +435,8 @@ curl --location --request PUT 'https://api.redseed.me/api/v0/training/297065' \
     "dateStartedAt": "2024-01-31T03:30:49+0000",
     "dateCompletedAt": null,
     "dateExpiresAt": null,
-    "dateDeletedAt": null
+    "dateDeletedAt": null,
+    "tags": ["red", "blue", "green"]
 }'
 ```
 
@@ -465,7 +471,18 @@ curl --location --request PUT 'https://api.redseed.me/api/v0/training/297065' \
             // Course Version Resource
         },
         "tags": [
-            // Tag Resources
+            {
+                "id": 13,
+                "name": "red"
+            },
+            {
+                "id": 14,
+                "name": "blue"
+            },
+            {
+                "id": 16,
+                "name": "green"
+            }
         ]
     }
 }
@@ -488,6 +505,7 @@ Parameter | Type | Required | Description
 `coach.id` | integer | Required | ID of an active coach in the client's organization
 `courseVersion` | integer | Required | ID of a valid version for the training's course
 `external_launch_url` | string | Optional | URL for launching external training content
+`tags` | array of strings | Optional | Array of tag names to associate with the training
 `dateStartedAt` | datetime | Optional | When the training was started. Format: ISO 8601 with timezone
 `dateCompletedAt` | datetime | Optional | When the training was completed. Format: ISO 8601 with timezone
 `dateExpiresAt` | datetime | Optional | When the training expires. Format: ISO 8601 with timezone
@@ -495,4 +513,8 @@ Parameter | Type | Required | Description
 
 <aside class="notice">
 Some attributes like user ID, course ID, created date, etc. cannot be modified through this endpoint. To change the user or course, delete the existing training and create a new one.
+</aside>
+
+<aside class="notice">
+Tags must already exist. If a tag doesn't exist, it will be ignored.
 </aside>

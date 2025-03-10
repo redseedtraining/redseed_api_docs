@@ -190,7 +190,12 @@ curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
         "external_url": "https://example.com",
         "bulk_enroll": true,
         "self_enroll": false,
-        "training_points": 10
+        "training_points": 10,
+        "external_meta": {
+            "custom_field": "custom value",
+            "course_code": "EXT-123",
+            "provider": "External Training Provider"
+        }
     },
     "versions": [
         {"schema": "External"}
@@ -243,7 +248,12 @@ curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
         "training_points": 10,
         "workbook": 0,
         "external_ref_id": "1234567890",
-        "external_url": "https://example.com"
+        "external_url": "https://example.com",
+        "external_meta": {
+            "custom_field": "custom value",
+            "course_code": "EXT-123",
+            "provider": "External Training Provider"
+        }
     },
     "versions": [
         {
@@ -276,13 +286,15 @@ Parameter | Type | Required | Description
 `config.external_url` | string | Optional | Valid URL for external courses
 `config.bulk_enroll` | boolean | Optional | Whether bulk enrollment is enabled for this course
 `config.self_enroll` | boolean | Optional | Whether self-enrollment is enabled for this course
-`config.training_points` | number | Optional | Number of training points awarded for completing this course
+`config.training_points` | integer | Optional | Number of training points awarded for completing this course
+`config.external_meta` | object | Optional | Additional metadata for external courses as key-value pairs
 `versions` | array | Required | At least one version object must be provided
 `versions[].schema` | string | Required | The schema type for the version, e.g., 'External'
 
 <aside class="notice">
 Course images cannot be set or edited via the API. Users must log in to the RedSeed application to upload or change course images.
 </aside>
+
 
 ## Updating a course
 
