@@ -101,6 +101,10 @@ GET https://api.redseed.me/api/v0/users/?location_id=<location_id>&status[]=Acti
 GET https://api.redseed.me/api/v0/users/?status[]=Active&status[]=Archived
 `
 
+`
+GET https://api.redseed.me/api/v0/users/?email=user@example.com
+`
+
 ### URL Parameters
 
 Parameter | Description
@@ -108,6 +112,7 @@ Parameter | Description
 `page` | The page of results to retrieve. If no page is specified, the first page will be returned.
 `location_id` | Retrieve users from this location and its children
 `status[]` | Retrieve users with this status. Supports multiple values.
+`email` | Retrieve users with this exact email address. Returns both active and archived users.
 
 
 ## Getting a user's details
