@@ -119,16 +119,24 @@ Fetch only non-external courses :<br>
 Fetch courses with specific external reference IDs :<br>
 `GET https://api.redseed.me/api/v0/courses/?external_ref_id[]=123&external_ref_id[]=789`
 
+Fetch courses with specific custom_fields keys and values :<br>
+`GET https://api.redseed.me/api/v0/courses/?custom_fields[owner]=ABC12345&custom_fields[department]=sales`
+
 
 ### Query Parameters
 
-Parameter        | Default | Description
----------------- | ------- | -----------
-page             | 1       | The page of results to retrieve. If no page is specified, the first page will be returned.
-course_id[]      | -       | Retrieve this course resource. Supports multiple values.
-status[]         | All     | Retrieve courses with this course type only. Supports multiple values.
-external         | All     | Filter courses by external flag. Use `1` for external courses, `0` for non-external courses.
-external_ref_id[] | -      | Retrieve courses with specific external reference IDs. Supports multiple values.
+Parameter           | Default | Description
+------------------- | ------- | -----------
+page                | 1       | The page of results to retrieve. If no page is specified, the first page will be returned.
+course_id[]         | -       | Retrieve this course resource. Supports multiple values.
+status[]            | All     | Retrieve courses with this course type only. Supports multiple values.
+external            | All     | Filter courses by external flag. Use `1` for external courses, `0` for non-external courses.
+external_ref_id[]    | -      | Retrieve courses with specific external reference IDs. Supports multiple values.
+custom_fields[key]=value   | - | Retrieve courses with specific custom_fields keys and values. Supports multiple values.
+
+<aside class="notice">
+Custom field keys must contain only alphanumeric characters, underscores, hyphens and fullstops.
+</aside>
 
 <aside class="success">
 If you select a single course via the course_id[] parameter the course resource will still be returned inside an array!
@@ -191,7 +199,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
         "bulk_enroll": true,
         "self_enroll": false,
         "training_points": 10,
-        "external_meta": {
+        "custom_fields": {
             "custom_field": "custom value",
             "course_code": "EXT-123",
             "provider": "External Training Provider"
@@ -249,7 +257,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/courses' \
         "workbook": 0,
         "external_ref_id": "1234567890",
         "external_url": "https://example.com",
-        "external_meta": {
+        "custom_fields": {
             "custom_field": "custom value",
             "course_code": "EXT-123",
             "provider": "External Training Provider"
@@ -287,7 +295,7 @@ Parameter | Type | Required | Description
 `config.bulk_enroll` | boolean | Optional | Whether bulk enrollment is enabled for this course
 `config.self_enroll` | boolean | Optional | Whether self-enrollment is enabled for this course
 `config.training_points` | integer | Optional | Number of training points awarded for completing this course
-`config.external_meta` | object | Optional | Additional metadata for external courses as key-value pairs
+`config.custom_fields` | object | Optional | Additional metadata for external courses as key-value pairs
 `versions` | array | Required | At least one version object must be provided
 `versions[].schema` | string | Required | The schema type for the version, e.g., 'External'
 
@@ -297,21 +305,58 @@ Course images cannot be set or edited via the API. Users must log in to the RedS
 
 
 ## Updating a course
-
 ```shell
-# This endpoint is not yet available
+curl --location --request PUT 'https://api.redseed.me/api/v0/courses/{course_id}' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer {MY_API_TOKEN}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Updated Course Name",
+    "description": "Updated Description",
+    "status": "Active",
+    "categories": [
+        {"id": 8908},
+        {"id": 8909}
+    ],
+    "config": {
+        "external_ref_id": "ABC12345",
+        "external_url": "https://example.com/newurl",
+        "custom_fields": {
+            "owner": 12345,
+            "costcenter": "ABC12345",
+            "custom_field": "Updated Custom Field Value"
+        }
+    },
+    "versions": [
+        {"schema": "External"}
+    ]
+}'
 ```
 
-> This feature is coming soon
+This endpoint is used to update an existing course. It returns a JSON object with the updated course resource.
 
-The ability to update existing courses via the API is currently under development and will be available in a future release. This will allow you to modify course attributes, categories, and configuration settings.
+### HTTP Request
+`PUT https://api.redseed.me/api/v0/courses/{course_id}`
 
-In the meantime, please use the RedSeed application interface to make changes to existing courses.
+### URL Parameters
+Parameter | Description
+--------- | -----------
+`{course_id}` | The ID of the course to update
 
-### Coming Soon
-- Update course details (name, description, status)
-- Modify course categories
-- Change course configuration settings
-- Update course versions
+### Parameters
+Attribute | Type | Required / Optional
+--------- | --------- | ---------
+`name` | string | Required
+`description` | string | Optional
+`status` | string | Required - Must be one of: 'Active', 'Locked', 'Inactive', 'System'
+`categories` | array | Optional - Array of category objects with IDs
+`config` | object | Optional - Course configuration object
+`config.external_ref_id` | string | Optional - External reference ID
+`config.external_url` | string | Optional - External URL
+`config.custom_fields` | object | Optional - Custom fields object with alphanumeric keys and string values
+`versions` | array | Required - Array containing at least one version object with schema
 
+<aside class="notice">
+Custom field keys must contain only alphanumeric characters, underscores, hyphens and fullstops.
+</aside>
 

@@ -10,7 +10,7 @@ Attribute | Type | Description
 `id` | integer | A unique and autoincrementing identifier for the training resource. Generated automatically.
 `status` | text | 'Training', 'Coaching', 'NotStarted', 'Completed' - Training status.
 `percentComplete` | integer | How far through the training the user is. This is a percentage value.
-`seconds` | integer | How many seconds the trainee has spent on the training.
+`external_seconds` | integer | How many seconds the trainee has spent on external training content. Used for external courses.
 `external_launch_url` | string | Optional URL for launching external training content. Used for external courses.
 `dateCreatedAt` | datetime | When the trainee was enrolled in the course.
 `dateStartedAt` | datetime | When the trainee started the training.
@@ -125,7 +125,7 @@ curl --location --request GET 'https://api.redseed.me/api/v0/training/297065' \
         "id": 297065,
         "status": "NotStarted",
         "percentComplete": 0,
-        "seconds": 0,
+        "external_seconds": 0,
         "external_launch_url": "https://www.example.org/training/123",
         "dateCreatedAt": "2017-09-15T01:24:53.000000Z",
         "dateStartedAt": null,
@@ -198,7 +198,8 @@ curl --location --request POST 'https://api.redseed.me/api/v0/training' \
     "course": {
         "id": 2943
     },
-    "external_launch_url": "https://www.example.org/1"
+    "external_launch_url": "https://www.example.org/1",
+    "external_seconds": 0
 }'
 ```
 > The above command returns JSON structured like this:
@@ -208,7 +209,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/training' \
     "id": 2083944,
     "status": "NotStarted",
     "percentComplete": 0,
-    "seconds": 0,
+    "external_seconds": 0,
     "external_launch_url": "https://www.example.org/1",
     "dateCreatedAt": "2023-06-26T02:41:27.000000Z",
     "dateStartedAt": null,
@@ -245,6 +246,7 @@ Attribute | Type | Required / Optional
 `coach.id` | integer | Required
 `course.id` | integer | Required
 `external_launch_url` | string | Optional - URL for launching external training content
+`external_seconds` | integer | Optional - Number of seconds spent on external training content
 
 
 See <a href="#training-attributes">Training Attributes</a> for more information.
@@ -361,7 +363,7 @@ curl --location --request POST 'https://api.redseed.me/api/v0/self_enroll/{cours
     "id": 167,
     "status": "NotStarted",
     "percentComplete": null,
-    "seconds": 0,
+    "external_seconds": 0,
     "launch_url": "https:\/\/www.redseed.me\/training\/8392\/723938303\/1143945081\/167",
     "external_launch_url": "https://www.example.org/self-enroll/123",
     "dateCreatedAt": "2024-01-31T03:30:49.000000Z",
@@ -432,7 +434,7 @@ curl --location --request PUT 'https://api.redseed.me/api/v0/training/297065' \
     },
     "courseVersion": 1951,
     "external_launch_url": "https://www.example.org/updated",
-    "dateStartedAt": "2024-01-31T03:30:49+0000",
+    "dateStartedAt": "2024-01-31T03:30:49.000000Z,
     "dateCompletedAt": null,
     "dateExpiresAt": null,
     "dateDeletedAt": null,
@@ -448,7 +450,7 @@ curl --location --request PUT 'https://api.redseed.me/api/v0/training/297065' \
         "id": 297065,
         "status": "Training",
         "percentComplete": 0,
-        "seconds": 0,
+        "external_seconds": 0,
         "external_launch_url": "https://www.example.org/updated",
         "dateCreatedAt": "2017-09-15T01:24:53.000000Z",
         "dateStartedAt": "2024-01-31T03:30:49.000000Z",
@@ -506,10 +508,11 @@ Parameter | Type | Required | Description
 `courseVersion` | integer | Required | ID of a valid version for the training's course
 `external_launch_url` | string | Optional | URL for launching external training content
 `tags` | array of strings | Optional | Array of tag names to associate with the training
-`dateStartedAt` | datetime | Optional | When the training was started. Format: ISO 8601 with timezone
-`dateCompletedAt` | datetime | Optional | When the training was completed. Format: ISO 8601 with timezone
-`dateExpiresAt` | datetime | Optional | When the training expires. Format: ISO 8601 with timezone
-`dateDeletedAt` | datetime | Optional | When the training was deleted. Format: ISO 8601 with timezone
+`dateStartedAt` | datetime | Optional | When the training was started. Format: ISO 8601
+`dateCompletedAt` | datetime | Optional | When the training was completed. Format: ISO 8601
+`dateExpiresAt` | datetime | Optional | When the training expires. Format: ISO 8601
+`dateDeletedAt` | datetime | Optional | When the training was deleted. Format: ISO 8601
+`external_seconds` | integer | Optional | Number of seconds spent on external training content
 
 <aside class="notice">
 Some attributes like user ID, course ID, created date, etc. cannot be modified through this endpoint. To change the user or course, delete the existing training and create a new one.
