@@ -47,7 +47,9 @@ You can view code examples in the dark area to the right.
 
 ```shell
 curl "https://api.redseed.me/api/v0/<endpoint>" \
-  --header 'Authorization: Bearer <YOUR_API_KEY>"
+  --header 'Accept: application/json' \
+  --header 'Authorization: Bearer <YOUR_API_KEY>' \
+  --header 'Content-Type: application/json'
 ```
 
 > Make sure to replace `<YOUR_API_KEY>` with your API key.

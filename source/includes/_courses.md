@@ -31,7 +31,9 @@ Inactive | Users cannot be enrolled in the course. Existing Enrollments are not 
 ## Getting courses
 ```shell
 curl --location --request GET 'https://api.redseed.me/api/v0/courses' \
---header 'Authorization: Bearer <YOUR_API_TOKEN>'
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer <YOUR_API_TOKEN>' \
+--header 'Content-Type: application/json'
 
 ```
 > The above command returns a JSON response structured like this:

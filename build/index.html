@@ -488,8 +488,10 @@
 <p>Note the authorization header below.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.redseed.me/api/v0/&lt;endpoint&gt;"</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_KEY&gt;"
-</span></code></pre></div>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_KEY&gt;'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
 <blockquote>
 <p>Make sure to replace <code>&lt;YOUR_API_KEY&gt;</code> with your API key.</p>
 </blockquote>
@@ -654,7 +656,9 @@ You must replace <code>YOUR_API_KEY</code> with your personal API key.
 </tr>
 </tbody></table>
 <h2 id='getting-users'>Getting users</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/users'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 
 </code></pre></div>
 <blockquote>
@@ -1209,7 +1213,9 @@ DELETE https://api.redseed.me/api/v0/users/&lt;user_id&gt;
 </tr>
 </tbody></table>
 <h2 id='getting-courses'>Getting courses</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/courses'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 
 </code></pre></div>
 <blockquote>
@@ -1776,8 +1782,9 @@ Custom field keys must contain only alphanumeric characters, underscores, hyphen
 </tr>
 </tbody></table>
 <h2 id='getting-training-resources'>Getting training resources</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/training'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
-
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns a JSON response structured like this:</p>
@@ -2459,8 +2466,9 @@ Tags must already exist. If a tag doesn't exist, it will be ignored.
 </tr>
 </tbody></table>
 <h2 id='getting-pathways'>Getting pathways</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/pathways'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
-
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns a JSON response structured like this:</p>
@@ -2725,7 +2733,9 @@ DELETE https://api.redseed.me/api/v0/user_pathways/&lt;user_pathway_id&gt;
 </tr>
 </tbody></table>
 <h2 id='getting-engagement'>Getting Engagement</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/engagement_summary/&lt;location_id&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span>
+<span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Bearer &lt;YOUR_API_TOKEN&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 
 
 

@@ -17,7 +17,9 @@ Attribute | Type | Description
 ## Getting Engagement
 ```shell
 curl --location --request GET 'https://api.redseed.me/api/v0/engagement_summary/<location_id>' \
---header 'Authorization: Bearer <YOUR_API_TOKEN>'
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer <YOUR_API_TOKEN>' \
+--header 'Content-Type: application/json'
 
 
 

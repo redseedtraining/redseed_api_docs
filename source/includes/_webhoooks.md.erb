@@ -22,69 +22,17 @@ Attribute | Type | Description
 ```shell
 curl "<%= data.redseed.endpoint %>/clients/{UUID}" \
   -X GET \
-  -H "Authorization: bearer {MY_API_TOKEN}"
+  -H "Accept: application/json" \
+  -H "Authorization: bearer {MY_API_TOKEN}" \
+  -H "Content-Type: application/json"
 ```
 ```php
 $curl = curl_init("<%= data.redseed.endpoint %>/clients/{UUID}");
 curl_setopt($curl, CURLOPT_HTTPHEADER, [
-  'Authorization: bearer {MY_API_TOKEN}'
+  'Accept: application/json',
+  'Authorization: bearer {MY_API_TOKEN}',
+  'Content-Type: application/json'
 ]);
 $response = curl_exec($curl);
 ```
-```javascript
-const redseedApi = require('redseedApi');
-let api = redseedApi.authorize('{MY_API_TOKEN}');
-let response = api.kittens.get('<%= data.redseed.endpoint %>/clients/{UUID}');
 ```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "data": {
-    "id": "",
-    "status": "Active",
-    "name": "Example Client",
-    "product": "RedSeed Pro",
-    "dateStarted": "2023-02-14T11:00:00.000000Z",
-    "dateEngagement": null,
-    "dateCreatedAt": "2023-02-14T19:52:57.000000Z",
-    "dateUpdatedAt": "2023-02-14T19:52:57.000000Z"
-  }
-}
-```
-### URL endpoint
-
-
-``
-<%= data.redseed.endpoint %>/clients/{UUID}
-``
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-{UUID} | The UUID of the client resource
-
-### URL Query Parameters
-
-None
-
-<aside class="notice">
-You must replace <code>{UUID}</code> with the uuid of the client resource and <code>{MY_API_TOKEN}</code> with your personal API key.
-</aside>
-
-## Update Client
-
-Not implemented via API, please contact RedSeed Support.
-
-## Delete Client
-
-Not implemented via API, please contact RedSeed Support.
-
-## Restore Client
-
-Not implemented via API, please contact RedSeed Support.
-
-## Get Multiple Clients
-
-Please contact RedSeed Support if you need to access multiple client resources.

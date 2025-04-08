@@ -13,7 +13,9 @@ Attribute | Type | Description
 
 ```shell
 curl --location --request GET 'https://api.redseed.me/api/v0/tags' \
---header 'Authorization: Bearer <YOUR_API_TOKEN>'
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer <YOUR_API_TOKEN>' \
+--header 'Content-Type: application/json'
 ```
 
 > The above command returns a JSON response structured like this:
