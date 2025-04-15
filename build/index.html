@@ -1849,6 +1849,18 @@ GET https://api.redseed.me/api/v0/training/?external_ref_id[]=&lt;external_ref_i
 <p><code>
 GET https://api.redseed.me/api/v0/training/?tag[]=red&amp;tag[]=blue
 </code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?updated_at_start=2024-01-01T00:00:00Z
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?updated_at_end=2024-01-31T23:59:59Z
+</code></p>
+
+<p><code>
+GET https://api.redseed.me/api/v0/training/?status[]=Training&amp;status[]=Completed
+</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1883,6 +1895,18 @@ GET https://api.redseed.me/api/v0/training/?tag[]=red&amp;tag[]=blue
 <tr>
 <td><code>tag[]</code></td>
 <td>retrieve training records that have these tags. Supports multiple values.</td>
+</tr>
+<tr>
+<td><code>updated_at_start</code></td>
+<td>retrieve training records updated after this date. Format: ISO 8601</td>
+</tr>
+<tr>
+<td><code>updated_at_end</code></td>
+<td>retrieve training records updated before this date. Format: ISO 8601</td>
+</tr>
+<tr>
+<td><code>status[]</code></td>
+<td>retrieve training records with these statuses. Supports multiple values. Valid values: &#39;Training&#39;, &#39;Coaching&#39;, &#39;NotStarted&#39;, &#39;Completed&#39;</td>
 </tr>
 </tbody></table>
 <h2 id='getting-training-details'>Getting training details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.redseed.me/api/v0/training/297065'</span> <span class="se">\</span>
