@@ -99,6 +99,18 @@ GET https://api.redseed.me/api/v0/training/?external_ref_id[]=<external_ref_id>&
 GET https://api.redseed.me/api/v0/training/?tag[]=red&tag[]=blue
 `
 
+`
+GET https://api.redseed.me/api/v0/training/?updated_at_start=2024-01-01T00:00:00Z
+`
+
+`
+GET https://api.redseed.me/api/v0/training/?updated_at_end=2024-01-31T23:59:59Z
+`
+
+`
+GET https://api.redseed.me/api/v0/training/?status[]=Training&status[]=Completed
+`
+
 ### URL Parameters
 
 Parameter | Description
@@ -110,6 +122,9 @@ Parameter | Description
 `course_id[]` | retrieve training records for this course. Supports multiple values.
 `external_ref_id[]` | retrieve training records for courses with these external reference IDs. Supports multiple values.
 `tag[]` | retrieve training records that have these tags. Supports multiple values.
+`updated_at_start` | retrieve training records updated after this date. Format: ISO 8601
+`updated_at_end` | retrieve training records updated before this date. Format: ISO 8601
+`status[]` | retrieve training records with these statuses. Supports multiple values. Valid values: 'Training', 'Coaching', 'NotStarted', 'Completed'
 
 
 ## Getting training details
