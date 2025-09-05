@@ -363,6 +363,29 @@
               </ul>
           </li>
           <li>
+            <a href="#user-roles" class="toc-h1 toc-link" data-title="User roles">User roles</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#user-role-attributes" class="toc-h2 toc-link" data-title="User role attributes">User role attributes</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-single-user-role" class="toc-h2 toc-link" data-title="Get a single user role">Get a single user role</a>
+                  </li>
+                  <li>
+                    <a href="#update-user-role" class="toc-h2 toc-link" data-title="Update user role">Update user role</a>
+                  </li>
+                  <li>
+                    <a href="#delete-user-role" class="toc-h2 toc-link" data-title="Delete user role">Delete user role</a>
+                  </li>
+                  <li>
+                    <a href="#restore-user-role" class="toc-h2 toc-link" data-title="Restore user role">Restore user role</a>
+                  </li>
+                  <li>
+                    <a href="#get-multiple-user-roles" class="toc-h2 toc-link" data-title="Get multiple user roles">Get multiple user roles</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#courses" class="toc-h1 toc-link" data-title="Courses">Courses</a>
               <ul class="toc-list-h2">
                   <li>
@@ -1274,6 +1297,141 @@ GET https://api.redseed.me/api/v0/locations/&lt;location_id&gt;
 </tbody></table>
 <h2 id='moving-locations'>Moving locations</h2>
 <p>RedSeed does not currently provide API access to move locations and their children. Please contact RedSeed support if you need to alter your location hierarchy.</p>
+<h1 id='user-roles'>User roles</h1>
+<p>A RedSeed <a href="/#users">User</a> can be assigned a single user role. User roles can be used to segment RedSeed reports. User roles are NOT shared between RedSeed clients. User roles are not implemented by all RedSeed clients.</p>
+<h2 id='user-role-attributes'>User role attributes</h2>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>A unique, auto-incrementing identifier for the user role.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>text</td>
+<td>Role description</td>
+</tr>
+<tr>
+<td><code>user_count</code></td>
+<td>integer</td>
+<td>The number of users that have this role assigned. Includes archived users.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-single-user-role'>Get a single user role</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.redseed.me/api/v0/user_roles/{ID}"</span> <span class="se">\</span>
+  <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: bearer {MY_API_TOKEN}"</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://api.redseed.me/api/v0/user_roles/</span><span class="si">{</span><span class="nv">ID</span><span class="si">}</span><span class="s2">"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="no">CURLOPT_HTTPHEADER</span><span class="p">,</span> <span class="p">[</span>
+  <span class="s1">'Authorization: bearer {MY_API_TOKEN}'</span>
+<span class="p">]);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">redseedApi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">redseedApi</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">redseedApi</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">{MY_API_TOKEN}</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.redseed.me/api/v0/user_roles/{ID}</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Manager"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">145</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='url-endpoint'>URL endpoint</h3>
+<p><code>
+https://api.redseed.me/api/v0/user_roles/{ID}
+</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>{ID}</td>
+<td>The integer ID of the user role</td>
+</tr>
+</tbody></table>
+<h3 id='url-query-parameters'>URL Query Parameters</h3>
+<p>None</p>
+
+<aside class="notice">
+You must replace <code>{ID}</code> with the user role ID and <code>{MY_API_TOKEN}</code> with your personal API key.
+</aside>
+<h2 id='update-user-role'>Update user role</h2>
+<p>Not implemented via API, please contact RedSeed Support.</p>
+<h2 id='delete-user-role'>Delete user role</h2>
+<p>Not implemented via API, please contact RedSeed Support.</p>
+<h2 id='restore-user-role'>Restore user role</h2>
+<p>Not implemented via API, please contact RedSeed Support.</p>
+<h2 id='get-multiple-user-roles'>Get multiple user roles</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.redseed.me/api/v0/user_roles"</span> <span class="se">\</span>
+  <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: bearer {MY_API_TOKEN}"</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://api.redseed.me/api/v0/user_roles"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="no">CURLOPT_HTTPHEADER</span><span class="p">,</span> <span class="p">[</span>
+  <span class="s1">'Authorization: bearer {MY_API_TOKEN}'</span>
+<span class="p">]);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">redseedApi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">redseedApi</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">redseedApi</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">{MY_API_TOKEN}</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.redseed.me/api/v0/user_roles</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Manager"</span><span class="p">,</span><span class="w"> </span><span class="nl">"user_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">145</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sales Associate"</span><span class="p">,</span><span class="w"> </span><span class="nl">"user_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">392</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.redseed.me/api/v0/user_roles?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.redseed.me/api/v0/user_roles?page=3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.redseed.me/api/v0/user_roles?page=2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.redseed.me/api/v0/user_roles"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='url-endpoint-2'>URL endpoint</h3>
+<p><code>
+https://api.redseed.me/api/v0/user_roles
+</code></p>
+<h3 id='url-query-parameters-2'>URL Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page_size</td>
+<td>integer</td>
+<td>Page size (default 100)</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>Page number (1-based)</td>
+</tr>
+</tbody></table>
 <h1 id='courses'>Courses</h1><h2 id='course-attributes'>Course Attributes</h2>
 <table><thead>
 <tr>

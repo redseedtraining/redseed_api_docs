@@ -1,0 +1,1157 @@
+{
+  "info": {
+    "name": "RedSeed API",
+    "description": "Complete RedSeed LMS API collection with all endpoints for users, courses, training, locations, and more.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{api_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.redseed.me/api/v0",
+      "type": "string"
+    },
+    {
+      "key": "api_token",
+      "value": "YOUR_API_TOKEN_HERE",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Get API Key Info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            },
+            "description": "Test your API key authentication"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users?page=1&status[]=Active",
+              "host": ["{{base_url}}"],
+              "path": ["users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                },
+                {
+                  "key": "status[]",
+                  "value": "Active",
+                  "description": "Filter by status: Active, Archived"
+                },
+                {
+                  "key": "location_id",
+                  "value": "",
+                  "description": "Filter by location ID (optional)"
+                },
+                {
+                  "key": "email",
+                  "value": "",
+                  "description": "Filter by exact email (optional)"
+                }
+              ]
+            },
+            "description": "Get all users with pagination and filtering options"
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            },
+            "description": "Get details for a specific user"
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"type\": \"Trainee\",\n    \"email\": \"john.doe@example.com\",\n    \"code\": \"EMP001\",\n    \"username\": \"johndoe\",\n    \"marker\": true,\n    \"locale\": \"en_AU\",\n    \"location\": {\n        \"id\": 11728\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "Create a new user"
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstName\": \"John Updated\",\n    \"lastName\": \"Doe\",\n    \"type\": \"HR\",\n    \"status\": \"Active\",\n    \"marker\": 1,\n    \"locale\": \"en_NZ\",\n    \"location\": {\n        \"id\": 11728\n    },\n    \"email\": \"john.updated@example.com\",\n    \"username\": \"johndoe\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            },
+            "description": "Update an existing user"
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            },
+            "description": "Delete a user (permanent)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Roles",
+      "item": [
+        {
+          "name": "Get All User Roles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user_roles?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["user_roles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                }
+              ]
+            },
+            "description": "Get all user roles"
+          }
+        },
+        {
+          "name": "Get User Role by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user_roles/{{role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["user_roles", "{{role_id}}"]
+            },
+            "description": "Get details for a specific user role"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Locations",
+      "item": [
+        {
+          "name": "Get All Locations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/locations?page=1&status[]=ACTIVE",
+              "host": ["{{base_url}}"],
+              "path": ["locations"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                },
+                {
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Results per page (optional)"
+                },
+                {
+                  "key": "status[]",
+                  "value": "ACTIVE",
+                  "description": "Filter by status: ACTIVE, ARCHIVED"
+                },
+                {
+                  "key": "code[]",
+                  "value": "",
+                  "description": "Filter by location codes (optional)"
+                }
+              ]
+            },
+            "description": "Get all locations with pagination and filtering"
+          }
+        },
+        {
+          "name": "Get Location by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/locations/{{location_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["locations", "{{location_id}}"]
+            },
+            "description": "Get details for a specific location"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Get All Courses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/courses?page=1&status[]=Active",
+              "host": ["{{base_url}}"],
+              "path": ["courses"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                },
+                {
+                  "key": "status[]",
+                  "value": "Active",
+                  "description": "Filter by status: Active, Locked, Inactive, System"
+                },
+                {
+                  "key": "course_id[]",
+                  "value": "",
+                  "description": "Filter by specific course IDs (optional)"
+                },
+                {
+                  "key": "external",
+                  "value": "",
+                  "description": "Filter by external flag: 1 for external, 0 for non-external"
+                },
+                {
+                  "key": "external_ref_id[]",
+                  "value": "",
+                  "description": "Filter by external reference IDs (optional)"
+                }
+              ]
+            },
+            "description": "Get all courses with pagination and filtering"
+          }
+        },
+        {
+          "name": "Get Course by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/course/{{course_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["course", "{{course_id}}"]
+            },
+            "description": "Get details for a specific course"
+          }
+        },
+        {
+          "name": "Create Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Test Course\",\n    \"description\": \"Test Description\",\n    \"status\": \"Active\",\n    \"categories\": [\n        {\"id\": 8908},\n        {\"id\": 8909}\n    ],\n    \"config\": {\n        \"external_ref_id\": \"1234567890\",\n        \"external_url\": \"https://example.com\",\n        \"bulk_enroll\": true,\n        \"self_enroll\": false,\n        \"training_points\": 10,\n        \"custom_fields\": {\n            \"custom_field\": \"custom value\",\n            \"course_code\": \"EXT-123\",\n            \"provider\": \"External Training Provider\"\n        }\n    },\n    \"versions\": [\n        {\"schema\": \"External\"}\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/courses",
+              "host": ["{{base_url}}"],
+              "path": ["courses"]
+            },
+            "description": "Create a new course"
+          }
+        },
+        {
+          "name": "Update Course",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Course Name\",\n    \"description\": \"Updated Description\",\n    \"status\": \"Active\",\n    \"categories\": [\n        {\"id\": 8908},\n        {\"id\": 8909}\n    ],\n    \"config\": {\n        \"external_ref_id\": \"ABC12345\",\n        \"external_url\": \"https://example.com/newurl\",\n        \"custom_fields\": {\n            \"owner\": 12345,\n            \"costcenter\": \"ABC12345\",\n            \"custom_field\": \"Updated Custom Field Value\"\n        }\n    },\n    \"versions\": [\n        {\"schema\": \"External\"}\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/{{course_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["courses", "{{course_id}}"]
+            },
+            "description": "Update an existing course"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Training",
+      "item": [
+        {
+          "name": "Get All Training",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/training?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["training"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                },
+                {
+                  "key": "location_id",
+                  "value": "",
+                  "description": "Filter by location ID (optional)"
+                },
+                {
+                  "key": "user_id[]",
+                  "value": "",
+                  "description": "Filter by user IDs (optional)"
+                },
+                {
+                  "key": "coach_id[]",
+                  "value": "",
+                  "description": "Filter by coach IDs (optional)"
+                },
+                {
+                  "key": "course_id[]",
+                  "value": "",
+                  "description": "Filter by course IDs (optional)"
+                },
+                {
+                  "key": "external_ref_id[]",
+                  "value": "",
+                  "description": "Filter by external reference IDs (optional)"
+                },
+                {
+                  "key": "tag[]",
+                  "value": "",
+                  "description": "Filter by tags (optional)"
+                },
+                {
+                  "key": "status[]",
+                  "value": "",
+                  "description": "Filter by status: Training, Coaching, NotStarted, Completed (optional)"
+                },
+                {
+                  "key": "updated_at_start",
+                  "value": "",
+                  "description": "Filter by updated date start (ISO 8601 format) (optional)"
+                },
+                {
+                  "key": "updated_at_end",
+                  "value": "",
+                  "description": "Filter by updated date end (ISO 8601 format) (optional)"
+                }
+              ]
+            },
+            "description": "Get all training records with pagination and filtering"
+          }
+        },
+        {
+          "name": "Get Training by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/training/{{training_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["training", "{{training_id}}"]
+            },
+            "description": "Get details for a specific training record"
+          }
+        },
+        {
+          "name": "Enroll User in Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user\": {\n        \"id\": 189814\n    },\n    \"coach\": {\n        \"id\": 70152\n    },\n    \"course\": {\n        \"id\": 2943\n    },\n    \"external_launch_url\": \"https://www.example.org/1\",\n    \"external_seconds\": 0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/training",
+              "host": ["{{base_url}}"],
+              "path": ["training"]
+            },
+            "description": "Enroll a user in a course"
+          }
+        },
+        {
+          "name": "Update Training Record",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"Training\",\n    \"coach\": {\n        \"id\": 70152\n    },\n    \"courseVersion\": 1951,\n    \"external_launch_url\": \"https://www.example.org/updated\",\n    \"dateStartedAt\": \"2024-01-31T03:30:49.000000Z\",\n    \"dateCompletedAt\": null,\n    \"dateExpiresAt\": null,\n    \"dateDeletedAt\": null,\n    \"tags\": [\"red\", \"blue\", \"green\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/training/{{training_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["training", "{{training_id}}"]
+            },
+            "description": "Update an existing training record"
+          }
+        },
+        {
+          "name": "Unenroll User from Course",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/training/{{training_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["training", "{{training_id}}"]
+            },
+            "description": "Unenroll a user from a course (delete training record)"
+          }
+        },
+        {
+          "name": "Get Self-Enrollable Courses",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/self_enroll",
+              "host": ["{{base_url}}"],
+              "path": ["self_enroll"]
+            },
+            "description": "Get all courses that the user can self-enroll in"
+          }
+        },
+        {
+          "name": "Self-Enroll in Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/self_enroll/{{course_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["self_enroll", "{{course_id}}"]
+            },
+            "description": "Self-enroll the authenticated user in a course"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pathways",
+      "item": [
+        {
+          "name": "Get All Pathways",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/pathways?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["pathways"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                }
+              ]
+            },
+            "description": "Get all pathways"
+          }
+        },
+        {
+          "name": "Get Pathway by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/pathways/{{pathway_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["pathways", "{{pathway_id}}"]
+            },
+            "description": "Get details for a specific pathway"
+          }
+        },
+        {
+          "name": "Enroll User in Pathway",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user\": {\n        \"id\": 189814\n    },\n    \"pathway\": {\n        \"uuid\": \"4f858f3e-8337-4220-bd61-cc72f3cc4cf1\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user_pathways",
+              "host": ["{{base_url}}"],
+              "path": ["user_pathways"]
+            },
+            "description": "Enroll a user in a pathway"
+          }
+        },
+        {
+          "name": "Unenroll User from Pathway",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user_pathways/{{user_pathway_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["user_pathways", "{{user_pathway_id}}"]
+            },
+            "description": "Unenroll a user from a pathway"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {
+          "name": "Get All Resources",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resources?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["resources"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                },
+                {
+                  "key": "category_id[]",
+                  "value": "",
+                  "description": "Filter by category IDs (optional)"
+                },
+                {
+                  "key": "name",
+                  "value": "",
+                  "description": "Search by name (partial match, case-insensitive) (optional)"
+                }
+              ]
+            },
+            "description": "Get all resources available to the user's location"
+          }
+        },
+        {
+          "name": "Get Resource by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resources/{{resource_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["resources", "{{resource_id}}"]
+            },
+            "description": "Get details for a specific resource"
+          }
+        },
+        {
+          "name": "Get Resource Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resource_categories?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["resource_categories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (optional)"
+                }
+              ]
+            },
+            "description": "Get all resource categories"
+          }
+        },
+        {
+          "name": "Get Resource Category by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resource_categories/{{category_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["resource_categories", "{{category_id}}"]
+            },
+            "description": "Get details for a specific resource category"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "item": [
+        {
+          "name": "Get All Tags",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/tags",
+              "host": ["{{base_url}}"],
+              "path": ["tags"]
+            },
+            "description": "Get all tags for your account"
+          }
+        },
+        {
+          "name": "Create Tag",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"project-alpha\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tags",
+              "host": ["{{base_url}}"],
+              "path": ["tags"]
+            },
+            "description": "Create a new tag"
+          }
+        },
+        {
+          "name": "Update Tag",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"project-beta\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tags/{{tag_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["tags", "{{tag_id}}"]
+            },
+            "description": "Update an existing tag"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Engagement",
+      "item": [
+        {
+          "name": "Get Engagement Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/engagement_summary",
+              "host": ["{{base_url}}"],
+              "path": ["engagement_summary"]
+            },
+            "description": "Get engagement summary for the organization's top location"
+          }
+        },
+        {
+          "name": "Get Engagement Summary by Location",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/engagement_summary/{{location_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["engagement_summary", "{{location_id}}"]
+            },
+            "description": "Get engagement summary for a specific location"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set common headers for all requests",
+          "pm.request.headers.add({",
+          "    key: 'Accept',",
+          "    value: 'application/json'",
+          "});",
+          "",
+          "pm.request.headers.add({",
+          "    key: 'Content-Type',",
+          "    value: 'application/json'",
+          "});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Basic response validation",
+          "pm.test('Status code is successful', function () {",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+          "});",
+          "",
+          "// Log response for debugging",
+          "if (pm.response.code >= 400) {",
+          "    console.log('Error Response:', pm.response.text());",
+          "}"
+        ]
+      }
+    }
+  ]
+}
