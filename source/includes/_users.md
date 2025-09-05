@@ -358,3 +358,48 @@ DELETE https://api.redseed.me/api/v0/users/<user_id>
 Parameter | Description
 --------- | -----------
 `<user_id>` | The ID of the user
+
+## Sending a welcome email
+
+This endpoint allows authorized users to trigger a welcome email to be sent to a specific user. The welcome email contains login credentials and instructions for accessing RedSeed.
+
+```shell
+curl --location --request POST 'https://api.redseed.me/api/v0/users/188291/welcome_email' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer <YOUR_API_TOKEN>' \
+--header 'Content-Type: application/json'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "message": "Welcome email queued",
+    "user_id": 188291
+}
+```
+
+### HTTP Request
+`
+POST https://api.redseed.me/api/v0/users/<user_id>/welcome_email
+`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+`<user_id>` | The ID of the user to send the welcome email to
+
+### Authorization
+
+This endpoint requires appropriate permissions to update the target user. Typically, only HR, Manager, or System users can trigger welcome emails for other users.
+
+### Response
+
+The endpoint returns a 202 Accepted status code with a JSON response indicating that the welcome email has been queued for delivery.
+
+### Error Responses
+
+- **403 Forbidden**: The authenticated user does not have permission to send welcome emails to the specified user
+- **404 Not Found**: The specified user does not exist
+- **422 Unprocessable Entity**: The user cannot receive emails (e.g., no email address, user on email blacklist)
