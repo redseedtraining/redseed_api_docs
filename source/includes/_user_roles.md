@@ -124,5 +124,6 @@ https://api.redseed.me/api/v0/user_roles
 
 Parameter | Type | Description
 --------- | ---- | -----------
+description | string | Filter user roles by description
 page_size | integer | Page size (default 100)
 page | integer | Page number (1-based)
