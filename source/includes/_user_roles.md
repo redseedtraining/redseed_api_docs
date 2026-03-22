@@ -118,8 +118,13 @@ let response = api.kittens.get('https://api.redseed.me/api/v0/user_roles');
 ```
 ### URL endpoint
 `
-https://api.redseed.me/api/v0/user_roles
+GET https://api.redseed.me/api/v0/user_roles
 `
+
+`
+GET https://api.redseed.me/api/v0/user_roles?description=manager
+`
+
 ### URL Query Parameters
 
 Parameter | Type | Description
